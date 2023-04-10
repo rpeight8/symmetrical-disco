@@ -2,6 +2,7 @@
 
 import "client-only";
 import { FC, useState } from "react";
+import * as Collapsible from "@radix-ui/react-collapsible";
 import NavigationToolbar from "@/components/NavigationToolbar/NavigationToolbar";
 import NavigationToolbarOpenCloseButton from "@/components/NavigationToolbar/NavigationToolbarOpenCloseButton";
 import { cva, VariantProps } from "class-variance-authority";
@@ -24,10 +25,19 @@ const Header: FC<HeaderProps> = ({}) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   return (
-    <header className={headerVariants({ open: isOpen })}>
-      <NavigationToolbarOpenCloseButton isOpen={isOpen} onClick={setOpen} />
-      <NavigationToolbar open={isOpen} />
-    </header>
+    <Collapsible.Root open={isOpen} onOpenChange={setOpen}>
+      <Collapsible.Trigger asChild>
+        <NavigationToolbarOpenCloseButton isOpen={isOpen} onClick={setOpen} />
+      </Collapsible.Trigger>
+      <Collapsible.Content asChild>
+        <NavigationToolbar open={isOpen} />
+      </Collapsible.Content>
+    </Collapsible.Root>
+
+    // <header className={headerVariants({ open: isOpen })}>
+
+    //   <NavigationToolbar open={isOpen} />
+    // </header>
   );
 };
 

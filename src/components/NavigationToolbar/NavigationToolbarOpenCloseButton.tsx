@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, forwardRef, useRef } from "react";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import { cva } from "class-variance-authority";
@@ -9,10 +9,10 @@ interface NavigationToolbarOpenCloseButtonProps {
   onClick: (isOpen: boolean) => void;
 }
 
-const NavigationToolbarOpenCloseButton: FC<
+const NavigationToolbarOpenCloseButton = forwardRef<
+  HTMLButtonElement,
   NavigationToolbarOpenCloseButtonProps
-> = ({ onClick, isOpen }) => {
-  console.log(isOpen);
+>(({ onClick, isOpen, ...props }, ref) => {
   return (
     <Button
       position="over"
@@ -20,6 +20,8 @@ const NavigationToolbarOpenCloseButton: FC<
         console.log("click");
         onClick(!isOpen);
       }}
+      ref={ref}
+      {...props}
     >
       <Icon
         name="SidebarOpen"
@@ -35,6 +37,9 @@ const NavigationToolbarOpenCloseButton: FC<
       />
     </Button>
   );
-};
+});
+
+NavigationToolbarOpenCloseButton.displayName =
+  "NavigationToolbarOpenCloseButton";
 
 export default NavigationToolbarOpenCloseButton;
