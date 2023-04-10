@@ -33,11 +33,6 @@ const Header: FC<HeaderProps> = ({}) => {
         <NavigationToolbar open={isOpen} />
       </Collapsible.Content>
     </Collapsible.Root>
-
-    // <header className={headerVariants({ open: isOpen })}>
-
-    //   <NavigationToolbar open={isOpen} />
-    // </header>
   );
 };
 

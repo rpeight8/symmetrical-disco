@@ -35,11 +35,22 @@ const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
           orientation="vertical"
           className={twMerge(navigationToolbarVariants({ open }))}
           {...props}
+          asChild
         >
-          <RadixToolbar.Button
-            className="bg-fray-100 w-12
+          <aside>
+            <nav>
+              <ul>
+                <li>
+                  <RadixToolbar.Button
+                    className="bg-fray-100 w-12
 	  h-12"
-          ></RadixToolbar.Button>
+                  >
+                    BUTTOn
+                  </RadixToolbar.Button>
+                </li>
+              </ul>
+            </nav>
+          </aside>
         </RadixToolbar.Root>
       </>
     );
