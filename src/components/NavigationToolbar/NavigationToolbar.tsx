@@ -11,29 +11,17 @@ import { twMerge } from "tailwind-merge";
 interface ToolbarProps extends VariantProps<typeof navigationToolbarVariants> {}
 
 const navigationToolbarVariants = cva(
-  "fixed w-full h-full bg-slate-700 transition-all",
-  {
-    variants: {
-      open: {
-        true: "translate-x-0",
-        false: "translate-x-[-100%]",
-      },
-    },
-    defaultVariants: {
-      open: false,
-    },
-  }
+  "fixed w-full h-full bg-slate-700 transition-all"
 );
 
 const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
-  ({ open, ...props }, ref) => {
-    open = open ?? false;
-    const [isOpen, setOpen] = useState<boolean>(open);
+  ({ ...props }, ref) => {
+    // const [isOpen, setOpen] = useState<boolean>(open);
     return (
       <>
         <RadixToolbar.Root
           orientation="vertical"
-          className={twMerge(navigationToolbarVariants({ open }))}
+          className={twMerge(navigationToolbarVariants())}
           {...props}
           asChild
         >
