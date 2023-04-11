@@ -8,7 +8,9 @@ import * as RadixToolbar from "@radix-ui/react-toolbar";
 import { cva, VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
-interface ToolbarProps extends VariantProps<typeof navigationToolbarVariants> {}
+interface ToolbarProps extends VariantProps<typeof navigationToolbarVariants> {
+  open?: boolean;
+}
 
 const navigationToolbarVariants = cva(
   "fixed w-full h-full bg-slate-700 transition-all"
