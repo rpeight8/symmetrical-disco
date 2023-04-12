@@ -14,14 +14,21 @@ const buttonVariants = cva("", {
     position: {
       over: "absolute top-0 left-0 z-50",
     },
+    isLoading: {
+      true: "opacity-50",
+      false: "opacity-100",
+    },
+  },
+  defaultVariants: {
+    isLoading: false,
   },
 });
 
 const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ text, position, children, ...props }, ref) => {
-    const classes = twMerge(buttonVariants({ position }));
+  ({ text, position, children, onClick, isLoading, ...props }, ref) => {
+    const classes = twMerge(buttonVariants({ position, isLoading }));
     return (
-      <button className={classes} {...props} ref={ref}>
+      <button className={classes} onClick={onClick} {...props} ref={ref}>
         {text ? <span>{text}</span> : children}
       </button>
     );
