@@ -40,6 +40,7 @@ export const options: NextAuthOptions = {
   },
   pages: {
     signIn: "/auth/signin",
+    error: "/auth/error",
   },
   providers: [
     GoogleProvider({
