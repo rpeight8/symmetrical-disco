@@ -2,6 +2,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { getServerSession } from "next-auth";
 import { options } from "@/lib/auth";
+import SignInContent from "@/components/SignInContent";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,12 +15,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(options);
-  console.log(session);
   return (
     <html lang="en">
       <body className="h-screen">
-        <Header />
-        <main className="py-10">{children}</main>
+        {(session && (
+          <>
+            <Header />
+            <main className="py-10">{children}</main>
+          </>
+        )) || <SignInContent />}
       </body>
     </html>
   );
