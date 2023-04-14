@@ -7,6 +7,7 @@ import NavigationToolbarOpenCloseButton from "./NavigationToolbarOpenCloseButton
 import * as RadixToolbar from "@radix-ui/react-toolbar";
 import { cva, VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
+import SignOutButton from "@/components/SignOutButton";
 
 interface ToolbarProps extends VariantProps<typeof navigationToolbarVariants> {
   open?: boolean;
@@ -36,6 +37,9 @@ const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
 	  h-12"
                   >
                     BUTTOn
+                  </RadixToolbar.Button>
+                  <RadixToolbar.Button asChild>
+                    <SignOutButton />
                   </RadixToolbar.Button>
                 </li>
               </ul>
