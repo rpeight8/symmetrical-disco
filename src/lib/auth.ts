@@ -61,7 +61,7 @@ export const options: NextAuthOptions = {
     async jwt({ token, user }) {
       const dbUser = await db.user.findUnique({
         where: {
-          email: token.email,
+          email: token.email ?? undefined,
         },
       });
 
@@ -70,9 +70,9 @@ export const options: NextAuthOptions = {
       }
 
       return {
-        id: dbUser.id,
-        email: dbUser.email,
-        name: dbUser.name,
+        id: dbUser?.id,
+        email: dbUser?.email,
+        name: dbUser?.name,
       };
     },
 
