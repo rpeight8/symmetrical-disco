@@ -24,13 +24,13 @@ const getDecks = async (): Promise<TDeck[]> => {
 };
 
 const decksPage = async ({}) => {
-  try {
-    const decks = await getDecks();
-    console.log(`decks: ${decks}`);
-  } catch (error) {
-    console.error(error);
-  }
-  return <div>decksPageProps</div>;
+  const decks = await getDecks();
+
+  <div>
+    {decks.map((deck) => {
+      return <div key={deck.id}>{deck.name}</div>;
+    })}
+  </div>;
 };
 
 export default decksPage;

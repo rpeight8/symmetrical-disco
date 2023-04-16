@@ -1,38 +1,26 @@
-"use client";
+import { VariantProps, cva } from "class-variance-authority";
+import { getServerSession } from "next-auth";
+import { FC, forwardRef } from "react";
+import { twMerge } from "tailwind-merge";
+import GoogleSignInButton from "@/components/GoogleSignInButton";
+import SignOutButton from "@/components/SignOutButton";
+import { options } from "@/lib/auth";
 
-import "client-only";
-import { FC, useState } from "react";
-import * as Collapsible from "@radix-ui/react-collapsible";
-import NavigationToolbar from "@/components/NavigationToolbar/NavigationToolbar";
-import NavigationToolbarOpenCloseButton from "@/components/NavigationToolbar/NavigationToolbarOpenCloseButton";
-import { cva, VariantProps } from "class-variance-authority";
+export interface HeaderProps
+  extends React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof headerVariants> {
+  text?: string;
+  ref?: React.Ref<HTMLButtonElement>;
+}
 
-const headerVariants = cva("fixed", {
-  variants: {
-    open: {
-      true: "w-full h-full",
-      false: "w-6 h-6",
-    },
-  },
-  defaultVariants: {
-    open: false,
-  },
-});
-
-interface HeaderProps extends VariantProps<typeof headerVariants> {}
-
-const Header: FC<HeaderProps> = ({}) => {
-  const [isOpen, setOpen] = useState<boolean>(false);
+const headerVariants = cva("");
+const Header = async ({ className }: HeaderProps) => {
+  const session = await getServerSession(options);
 
   return (
-    <Collapsible.Root open={isOpen} onOpenChange={setOpen}>
-      <Collapsible.Trigger asChild>
-        <NavigationToolbarOpenCloseButton isOpen={isOpen} onClick={setOpen} />
-      </Collapsible.Trigger>
-      <Collapsible.Content asChild>
-        <NavigationToolbar open={isOpen} />
-      </Collapsible.Content>
-    </Collapsible.Root>
+    <header className={twMerge(headerVariants(), className)}>
+      {session ? <SignOutButton /> : <GoogleSignInButton />}
+    </header>
   );
 };
 

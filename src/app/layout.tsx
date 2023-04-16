@@ -1,8 +1,9 @@
 import "./globals.css";
-import Header from "@/components/Header";
+import NavigationSidebar from "@/components/NavigationSidebar/NavigationSidebar";
 import { getServerSession } from "next-auth";
 import { options } from "@/lib/auth";
 import SignInContent from "@/components/SignInContent";
+import Header from "@/components/Header";
 
 export const metadata = {
   title: "Create Next App",
@@ -18,12 +19,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="h-screen">
-        {(session && (
-          <>
-            <Header />
-            <main className="py-10">{children}</main>
-          </>
-        )) || <SignInContent />}
+        <NavigationSidebar />
+        <Header className="pl-6" />
+        <main className="py-10">{children}</main>
       </body>
     </html>
   );

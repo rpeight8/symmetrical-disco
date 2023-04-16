@@ -1,3 +1,6 @@
+"use client";
+
+import "client-only";
 import { VariantProps, cva } from "class-variance-authority";
 import { FC, forwardRef } from "react";
 import { twMerge } from "tailwind-merge";

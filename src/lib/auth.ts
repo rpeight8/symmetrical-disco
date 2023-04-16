@@ -66,11 +66,15 @@ export const options: NextAuthOptions = {
       });
 
       if (!dbUser) {
-        token.id = user.id;
+				return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+        };
       }
 
       return {
-        id: dbUser?.id,
+        id: dbUser.id,
         email: dbUser?.email,
         name: dbUser?.name,
       };

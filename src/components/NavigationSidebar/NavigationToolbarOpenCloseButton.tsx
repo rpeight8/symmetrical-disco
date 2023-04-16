@@ -3,6 +3,7 @@ import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import { cva } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
+import { useSession } from "next-auth/react";
 
 interface NavigationToolbarOpenCloseButtonProps {
   isOpen: boolean;
