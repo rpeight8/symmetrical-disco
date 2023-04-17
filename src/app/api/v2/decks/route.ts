@@ -3,9 +3,9 @@ import { options } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
 // @ts-ignore
-export async function GET(request, response) {
+export async function GET() {
   const session = await getServerSession(options);
-  console.log(`V2 Session in route: ${JSON.stringify(session)}`);
+  console.log(`V2 Session in Decks route: ${JSON.stringify(session)}`);
   if (!session) {
     return new Response("Unauthorized", { status: 401 });
   }
@@ -13,6 +13,9 @@ export async function GET(request, response) {
   const dbDecks = await db.deck.findMany({
     where: {
       authorId: session.user.id,
+    },
+    include: {
+      cards: true,
     },
   });
   console.log(`Found ${dbDecks.length} decks for user ${session.user.id}`);
