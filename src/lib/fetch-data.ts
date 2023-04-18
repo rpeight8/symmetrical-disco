@@ -35,6 +35,29 @@ export const getDecks = async ({
   }
 };
 
+export const createDeck = async ({
+  name,
+  description,
+}: {
+  name: string;
+  description: string;
+}) => {
+  try {
+    const res = await fetch("http://localhost:3000/api/v2/decks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        description,
+      }),
+    });
+  } catch (error: unknown) {
+    throw error;
+  }
+};
+
 export const getCards = async ({
   deckId,
   headers,
