@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import { FC, ReactElement } from "react";
 import { getDecks } from "@/lib/fetch-data";
+import DeckCreationForm from "@/components/DeckCreationForm";
 
 interface decksPageProps {}
 
@@ -13,6 +14,7 @@ const decksPage = async ({}) => {
 
   return (
     <div>
+      <DeckCreationForm />
       <ul>
         {decks.map((deck) => {
           return (

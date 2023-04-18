@@ -28,12 +28,17 @@ export async function POST(request: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const { deckName } = (await request.json()) as { deckName: string };
+  const { name, description } = (await request.json()) as {
+    name: string;
+    description: string;
+  };
 
-  const dbDeck = await db.deck.findFirst({
+  const dbDeck = await db.deck.findUnique({
     where: {
-      name: deckName,
-      authorId: session.user.id,
+      name_authorId: {
+        name: name,
+        authorId: session.user.id,
+      },
     },
   });
 
@@ -45,7 +50,8 @@ export async function POST(request: Request) {
 
   await db.deck.create({
     data: {
-      name: deckName,
+      name,
+      description,
       authorId: session.user.id,
     },
   });
