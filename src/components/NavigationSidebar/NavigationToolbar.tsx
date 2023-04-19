@@ -7,14 +7,14 @@ import NavigationToolbarOpenCloseButton from "./NavigationToolbarOpenCloseButton
 import * as RadixToolbar from "@radix-ui/react-toolbar";
 import { cva, VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
+import Link from "next/link";
+import Button from "@/components/ui/Button";
 
 interface ToolbarProps extends VariantProps<typeof navigationToolbarVariants> {
   open?: boolean;
 }
 
-const navigationToolbarVariants = cva(
-  "fixed w-full h-full bg-slate-700 transition-all"
-);
+const navigationToolbarVariants = cva(" transition-all");
 
 const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
   ({ ...props }, ref) => {
@@ -26,15 +26,17 @@ const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
           {...props}
           asChild
         >
-          <aside>
-            <nav>
-              <ul>
-                <li>
-                  <RadixToolbar.Button asChild></RadixToolbar.Button>
-                </li>
-              </ul>
-            </nav>
-          </aside>
+          <nav>
+            <ul>
+              <li>
+                <RadixToolbar.Button asChild>
+                  <Button>
+                    <Link href="/decks">Decks</Link>
+                  </Button>
+                </RadixToolbar.Button>
+              </li>
+            </ul>
+          </nav>
         </RadixToolbar.Root>
       </>
     );

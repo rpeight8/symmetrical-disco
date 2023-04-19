@@ -6,12 +6,13 @@ import * as Collapsible from "@radix-ui/react-collapsible";
 import NavigationToolbar from "@/components/NavigationSidebar/NavigationToolbar";
 import NavigationToolbarOpenCloseButton from "@/components/NavigationSidebar/NavigationToolbarOpenCloseButton";
 import { cva, VariantProps } from "class-variance-authority";
+import { twMerge } from "tailwind-merge";
 
-const headerVariants = cva("fixed", {
+const navigationSidebarVariants = cva("fixed z-50 flex", {
   variants: {
     open: {
       true: "w-full h-full",
-      false: "w-6 h-6",
+      false: "w-auto h-auto",
     },
   },
   defaultVariants: {
@@ -19,18 +20,24 @@ const headerVariants = cva("fixed", {
   },
 });
 
-interface HeaderProps extends VariantProps<typeof headerVariants> {}
+interface HeaderProps extends VariantProps<typeof navigationSidebarVariants> {}
 
 const Header: FC<HeaderProps> = ({}) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   return (
-    <Collapsible.Root open={isOpen} onOpenChange={setOpen}>
+    <Collapsible.Root
+      open={isOpen}
+      onOpenChange={setOpen}
+      className={twMerge(navigationSidebarVariants({ open: isOpen }))}
+    >
       <Collapsible.Trigger asChild>
         <NavigationToolbarOpenCloseButton isOpen={isOpen} onClick={setOpen} />
       </Collapsible.Trigger>
       <Collapsible.Content asChild>
-        <NavigationToolbar open={isOpen} />
+        <aside className="w-full h-full bg-primary-700 pt-10">
+          <NavigationToolbar open={isOpen} />
+        </aside>
       </Collapsible.Content>
     </Collapsible.Root>
   );

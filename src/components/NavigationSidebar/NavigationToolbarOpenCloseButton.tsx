@@ -16,7 +16,9 @@ const NavigationToolbarOpenCloseButton = forwardRef<
 >(({ onClick, isOpen, ...props }, ref) => {
   return (
     <Button
-      position="over"
+      size="small"
+      variant="contained"
+      className="absolute grid grid-rows-1 top-1 left-1 rounded-full"
       onClick={() => {
         console.log("click");
         onClick(!isOpen);
@@ -26,13 +28,13 @@ const NavigationToolbarOpenCloseButton = forwardRef<
     >
       <Icon
         name="SidebarOpen"
-        className={`absolute ${
+        className={`row-span-full col-span-full ${
           isOpen ? "opacity-0" : "opacity-100"
         } transition-all`}
       />
       <Icon
         name="SidebarClose"
-        className={`absolute ${
+        className={`row-span-full col-span-full ${
           isOpen ? "opacity-100" : "opacity-0"
         } transition-all`}
       />
