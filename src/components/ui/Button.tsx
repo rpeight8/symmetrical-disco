@@ -9,7 +9,6 @@ export interface ButtonProps
   extends React.HTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   text?: string;
-  disabled: boolean;
   ref?: React.Ref<HTMLButtonElement>;
 }
 
@@ -62,16 +61,18 @@ const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(
       text,
       position,
       variant,
-      disabled = false,
+      disabled,
       children,
       onClick,
       isLoading,
+      size,
       ...props
     },
     ref
   ) => {
+    disabled = disabled ?? false;
     const classes = twMerge(
-      buttonVariants({ position, isLoading, variant, disabled })
+      buttonVariants({ position, isLoading, variant, disabled, size })
     );
     return (
       <button
