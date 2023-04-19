@@ -17,7 +17,7 @@ export default async function RootLayout({
   const session = await getServerSession(options);
   return (
     <html lang="en">
-      <body className="h-screen">
+      <body className="h-screen bg-primary">
         <NavigationSidebar />
         {/* @ts-expect-error Server Component */}
         <Header className="pl-6" />
