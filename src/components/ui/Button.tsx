@@ -66,13 +66,15 @@ const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(
       onClick,
       isLoading,
       size,
+      className,
       ...props
     },
     ref
   ) => {
     disabled = disabled ?? false;
     const classes = twMerge(
-      buttonVariants({ position, isLoading, variant, disabled, size })
+      buttonVariants({ position, isLoading, variant, disabled, size }),
+      className
     );
     return (
       <button
