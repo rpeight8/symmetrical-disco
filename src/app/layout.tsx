@@ -19,9 +19,11 @@ export default async function RootLayout({
     <html lang="en">
       <body className="h-screen bg-primary-500">
         <NavigationSidebar />
-        {/* @ts-expect-error Server Component */}
-        <Header className="pl-6 pt-2" />
-        <main className="py-10 px-5">{children}</main>
+        <div className="p-2">
+          {/* @ts-expect-error Server Component */}
+          <Header className="mt-3.5" />
+          <main className="py-10 px-5">{children}</main>
+        </div>
       </body>
     </html>
   );

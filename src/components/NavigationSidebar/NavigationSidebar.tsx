@@ -31,12 +31,17 @@ const Header: FC<HeaderProps> = ({}) => {
       onOpenChange={setOpen}
       className={twMerge(navigationSidebarVariants({ open: isOpen }))}
     >
-      <Collapsible.Trigger asChild>
-        <NavigationToolbarOpenCloseButton isOpen={isOpen} onClick={setOpen} />
+      <Collapsible.Trigger className="mt-3 ml-3" asChild>
+        <NavigationToolbarOpenCloseButton
+          isOpen={isOpen}
+          onClick={() => {
+            setOpen(!isOpen);
+          }}
+        />
       </Collapsible.Trigger>
       <Collapsible.Content asChild>
-        <aside className="w-full h-full bg-primary-700 pt-10">
-          <NavigationToolbar open={isOpen} />
+        <aside className="w-full h-full bg-primary-700 pt-20 px-3">
+          <NavigationToolbar open={isOpen} setOpen={setOpen} />
         </aside>
       </Collapsible.Content>
     </Collapsible.Root>

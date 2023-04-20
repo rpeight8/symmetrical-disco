@@ -1,42 +1,51 @@
-import { FC, forwardRef, useRef } from "react";
+import { FC, HTMLAttributes, forwardRef, useRef } from "react";
 import Button from "@/components/ui/Button";
+import type { ButtonProps } from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import { cva } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
-import { useSession } from "next-auth/react";
 
-interface NavigationToolbarOpenCloseButtonProps {
+interface NavigationToolbarOpenCloseButtonProps extends ButtonProps {
   isOpen: boolean;
-  onClick: (isOpen: boolean) => void;
 }
+
+const navigationToolbarOpenCloseButtonVariants = cva(
+  "absolute grid grid-rows-1"
+);
+
+const navigationToolbarOpenCloseButtonIconVariants = cva(
+  "row-span-full col-span-full transition-all"
+);
 
 const NavigationToolbarOpenCloseButton = forwardRef<
   HTMLButtonElement,
   NavigationToolbarOpenCloseButtonProps
->(({ onClick, isOpen, ...props }, ref) => {
+>(({ onClick, isOpen, className, ...props }, ref) => {
   return (
     <Button
-      size="small"
+      size="medium"
+      rounded="full"
       variant="contained"
-      className="absolute grid grid-rows-1 top-1 left-1 rounded-full"
-      onClick={() => {
-        console.log("click");
-        onClick(!isOpen);
-      }}
+      className={twMerge(navigationToolbarOpenCloseButtonVariants(), className)}
+      onClick={onClick}
       ref={ref}
       {...props}
     >
       <Icon
+        size="medium"
         name="SidebarOpen"
-        className={`row-span-full col-span-full ${
-          isOpen ? "opacity-0" : "opacity-100"
-        } transition-all`}
+        className={twMerge(
+          navigationToolbarOpenCloseButtonIconVariants(),
+          `${isOpen ? "opacity-0" : "opacity-100"}`
+        )}
       />
       <Icon
+        size="medium"
         name="SidebarClose"
-        className={`row-span-full col-span-full ${
-          isOpen ? "opacity-100" : "opacity-0"
-        } transition-all`}
+        className={twMerge(
+          navigationToolbarOpenCloseButtonIconVariants(),
+          `${isOpen ? "opacity-100" : "opacity-0"}`
+        )}
       />
     </Button>
   );

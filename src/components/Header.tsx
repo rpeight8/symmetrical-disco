@@ -14,26 +14,17 @@ export interface HeaderProps
   ref?: React.Ref<HTMLButtonElement>;
 }
 
-const headerVariants = cva("ml-8");
+const headerVariants = cva("flex justify-end");
 const Header = async ({ className }: HeaderProps) => {
   const session = await getServerSession(options);
 
   return (
     <header className={twMerge(headerVariants(), className)}>
-      {session ? <SignOutButton /> : <GoogleSignInButton />}
-      <div className="flex flex-col gap-2 my-2">
-        {/* <Button variant="contained" text="contained" size="large" />
-        <Button
-          variant="contained"
-          text="contained"
-          size="medium"
-          disabled={true}
-        />
-        <Button variant="outlined" text="outlined" />
-        <Button variant="outlined" text="outlined" disabled={true} />
-        <Button variant="ghost" text="ghost" />
-        <Button variant="ghost" text="ghost" disabled={true} /> */}
-      </div>
+      {session ? (
+        <SignOutButton size="medium" />
+      ) : (
+        <GoogleSignInButton size="medium" />
+      )}
     </header>
   );
 };

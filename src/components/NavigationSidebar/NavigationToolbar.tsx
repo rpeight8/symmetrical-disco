@@ -12,12 +12,13 @@ import Button from "@/components/ui/Button";
 
 interface ToolbarProps extends VariantProps<typeof navigationToolbarVariants> {
   open?: boolean;
+  setOpen?: (isOpen: boolean) => void;
 }
 
 const navigationToolbarVariants = cva(" transition-all");
 
 const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
-  ({ ...props }, ref) => {
+  ({ setOpen, ...props }, ref) => {
     return (
       <>
         <RadixToolbar.Root
@@ -27,12 +28,20 @@ const Toolbar = forwardRef<HTMLDivElement, ToolbarProps>(
           asChild
         >
           <nav>
-            <ul>
-              <li>
-                <RadixToolbar.Button asChild>
-                  <Button>
-                    <Link href="/decks">Decks</Link>
-                  </Button>
+            <ul className="flex flex-col">
+              <li className="flex">
+                <RadixToolbar.Button className="flex-1" asChild>
+                  <Link href="/decks" passHref legacyBehavior>
+                    <Button
+                      size="large"
+                      className="flex-1"
+                      onClick={() => {
+                        setOpen && setOpen(false);
+                      }}
+                    >
+                      Decks
+                    </Button>
+                  </Link>
                 </RadixToolbar.Button>
               </li>
             </ul>

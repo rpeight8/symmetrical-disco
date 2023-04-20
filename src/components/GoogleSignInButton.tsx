@@ -4,10 +4,11 @@ import "client-only";
 import { FC, useState } from "react";
 import { signIn } from "next-auth/react";
 import Button from "@/components/ui/Button";
+import type { ButtonProps } from "@/components/ui/Button";
 
-interface GoogleSignInButtonProps {}
+interface GoogleSignInButtonProps extends ButtonProps {}
 
-const GoogleSignInButton: FC<GoogleSignInButtonProps> = ({}) => {
+const GoogleSignInButton: FC<GoogleSignInButtonProps> = ({ ...props }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const signInHandler = async () => {
@@ -25,7 +26,7 @@ const GoogleSignInButton: FC<GoogleSignInButtonProps> = ({}) => {
   };
 
   return (
-    <Button onClick={signInHandler} isLoading={isLoading}>
+    <Button onClick={signInHandler} isLoading={isLoading} {...props}>
       Sign In using Google
     </Button>
   );

@@ -3,17 +3,19 @@
 import "client-only";
 import { FC, forwardRef } from "react";
 import Button from "@/components/ui/Button";
+import type { ButtonProps } from "@/components/ui/Button";
 import { signOut } from "next-auth/react";
 
-interface SignOffButtonProps {}
+interface SignOffButtonProps extends ButtonProps {}
 
 const SignOffButton = forwardRef<HTMLButtonElement, SignOffButtonProps>(
-  ({}, ref) => {
+  ({ ...props }, ref) => {
     return (
       <Button
         onClick={() => {
           signOut();
         }}
+        {...props}
         ref={ref}
       >
         Sign Out
