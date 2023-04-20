@@ -6,6 +6,7 @@ import * as Form from "@radix-ui/react-form";
 import { createDeck } from "@/lib/fetch-data";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import Label from "@/components/ui/Label";
 import { useRouter } from "next/navigation";
 
 interface DeckCreationFormProps {}
@@ -16,9 +17,11 @@ const DeckCreationForm: FC<DeckCreationFormProps> = ({}) => {
   const [description, setDescription] = useState<string>("");
 
   return (
-    <Form.Root className="text-black">
-      <Form.Field name="name">
-        <Form.Label>Name</Form.Label>
+    <Form.Root className="text-primary-complimentary-500 flex flex-col gap-y-5">
+      <Form.Field name="name" className="flex flex-col items-start">
+        <Form.Label asChild>
+          <Label text="Name" size="large" />
+        </Form.Label>
         <Form.Control asChild>
           <Input
             value={name}
@@ -28,8 +31,10 @@ const DeckCreationForm: FC<DeckCreationFormProps> = ({}) => {
           />
         </Form.Control>
       </Form.Field>
-      <Form.Field name="description">
-        <Form.Label>Description</Form.Label>
+      <Form.Field name="description" className="flex flex-col items-start">
+        <Form.Label asChild>
+          <Label text="Description" size="large" />
+        </Form.Label>
         <Form.Control asChild>
           <Input
             value={description}
@@ -41,6 +46,7 @@ const DeckCreationForm: FC<DeckCreationFormProps> = ({}) => {
       </Form.Field>
       <Form.Submit asChild>
         <Button
+          size="medium"
           onClick={async (event) => {
             event.preventDefault();
             await createDeck({
