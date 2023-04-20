@@ -1,6 +1,8 @@
 import { headers } from "next/headers";
 import { FC, ReactElement } from "react";
 import { getDecks } from "@/lib/fetch-data";
+import Button from "@/components/ui/Button";
+import Heading from "@/components/ui/Heading";
 import DeckCreationForm from "@/components/DeckCreationForm";
 
 interface decksPageProps {}
@@ -13,7 +15,16 @@ const decksPage = async ({}) => {
   console.log(decks);
 
   return (
-    <div>
+    <section>
+      <header className="flex justify-between">
+        <Heading
+          importance="h1"
+          text={`Decks (${decks?.length ?? 0})`}
+          size="large"
+          className="font-semibold"
+        />
+        <Button size="medium">Add Deck</Button>
+      </header>
       <DeckCreationForm />
       <ul>
         {decks.map((deck) => {
@@ -34,7 +45,7 @@ const decksPage = async ({}) => {
           );
         })}
       </ul>
-    </div>
+    </section>
   );
 };
 
