@@ -15,13 +15,20 @@ export type Icons = Record<IconName, Icon>;
 
 const iconVariants = cva("", {
   variants: {
+    size: {
+      small: "w-5 h-5",
+      medium: "w-7 h-7",
+      large: "w-9 h-9",
+    },
     variant: {
-      primary: "stroke-red-950 text-red-950",
-      secondary: "text-secondary-500",
+      primary:
+        "stroke-primary-complimentary-500 text-primary-complimentary-500",
+      secondary: "text-primary-complimentary-500",
     },
   },
   defaultVariants: {
     variant: "primary",
+    size: "medium",
   },
 });
 
@@ -31,14 +38,14 @@ interface IconProps
   name: IconName;
 }
 
-const Icon: FC<IconProps> = ({ name, variant, className }) => {
+const Icon: FC<IconProps> = ({ name, variant, size, className }) => {
   if (!(name in Icons)) throw new Error(`Icon ${name} not found!`);
 
   const Icon = Icons[name];
 
-  const classes = twMerge(iconVariants({ variant }), className);
-
-  return <Icon className={classes} />;
+  return (
+    <Icon className={twMerge(iconVariants({ variant, size }), className)} />
+  );
 };
 
 export default Icon;
