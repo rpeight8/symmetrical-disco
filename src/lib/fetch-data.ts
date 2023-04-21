@@ -1,22 +1,25 @@
-import { z } from "zod";
+import { deckSchema, cardSchema, decksSchema } from "@/lib/schemas";
 import { headers as THeaders } from "next/headers";
 
-const cardSchema = z.object({
-  id: z.string(),
-  deckId: z.string(),
-  question: z.string(),
-  answer: z.string(),
-});
-
-const deckSchema = z.array(
-  z.object({
-    id: z.string(),
-    description: z.string().nullable(),
-    name: z.string(),
-    authorId: z.string(),
-    cards: z.array(cardSchema),
-  })
-);
+export const getDeck = async ({
+  deckId,
+  headers,
+}: {
+  deckId: string;
+  headers?: { [key: string]: string };
+}) => {
+  try {
+    const res = await fetch(`http://localhost:3000/api/v2/decks/${deckId}`, {
+      headers,
+    });
+    if (!res.ok) throw new Error(`Failed to fetch deck: ${res.statusText}`);
+    const deck = await res.json();
+    console.log(`Deck: ${JSON.stringify(deck)}`);
+    return deckSchema.parse(deck);
+  } catch (error: unknown) {
+    throw error;
+  }
+};
 
 export const getDecks = async ({
   headers,
@@ -29,7 +32,7 @@ export const getDecks = async ({
     });
     if (!res.ok) throw new Error(`Failed to fetch decks: ${res.statusText}`);
     const decks = await res.json();
-    return deckSchema.parse(decks);
+    return decksSchema.parse(decks);
   } catch (error: unknown) {
     throw error;
   }
