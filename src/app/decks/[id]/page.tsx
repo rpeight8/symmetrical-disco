@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { FC, ReactElement } from "react";
-import { getDecks } from "@/lib/fetch-data";
+import { getDeck } from "@/lib/fetch-data";
 import Heading from "@/components/ui/Heading";
 import AddDeckAccordion from "@/components/AddDeckAccordion";
 import DecksList from "@/components/DecksList";
@@ -13,17 +13,18 @@ interface decksPageProps {
 
 /* @ts-expect-error Async Server Component */
 const decksPage: FC<decksPageProps> = async ({ params }) => {
-  const decks = await getDecks({
+  const deck = await getDeck({
     headers: { cookie: headers().get("cookie") ?? "" },
+    deckId: params.id,
   });
 
-  console.log(decks);
+  console.log(deck);
 
   return (
-    <section>
-      <AddDeckAccordion />
-      <DecksList items={decks} />
-    </section>
+    <div>
+      <span>{deck.name}</span>
+      <span>{deck.description}</span>
+    </div>
   );
 };
 
