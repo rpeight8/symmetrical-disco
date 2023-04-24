@@ -19,5 +19,7 @@ export const deckSchema = z.object({
 
 export const decksSchema = z.array(deckSchema);
 
-export type Deck = z.infer<typeof deckSchema>[number];
+export type Deck = z.infer<typeof deckSchema>;
+export type Decks = z.infer<typeof decksSchema>;
 export type Card = z.infer<typeof cardSchema>;
+export type Cards = z.infer<typeof cardsSchema>;
