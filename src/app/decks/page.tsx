@@ -3,7 +3,7 @@ import { FC, ReactElement } from "react";
 import { getDecks } from "@/lib/fetch-data";
 import Heading from "@/components/ui/Heading";
 import AddDeckAccordion from "@/components/AddDeckAccordion";
-import DecksList from "@/components/DecksList";
+import DecksTable from "@/components/DecksTable";
 
 interface decksPageProps {
   params: {
@@ -17,12 +17,10 @@ const decksPage: FC<decksPageProps> = async ({ params }) => {
     headers: { cookie: headers().get("cookie") ?? "" },
   });
 
-  console.log(decks);
-
   return (
     <section>
       <AddDeckAccordion />
-      <DecksList items={decks} />
+      <DecksTable decks={decks} />
     </section>
   );
 };
