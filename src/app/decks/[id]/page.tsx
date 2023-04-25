@@ -2,8 +2,9 @@ import { headers } from "next/headers";
 import { FC, ReactElement } from "react";
 import { getDeck } from "@/lib/fetch-data";
 import Heading from "@/components/ui/Heading";
-import AddDeckAccordion from "@/components/AddDeckAccordion";
+import EditDeckAccordion from "@/components/EditDeckAccordion";
 import DecksList from "@/components/DecksList";
+import Button from "@/components/ui/Button";
 
 interface decksPageProps {
   params: {
@@ -18,12 +19,17 @@ const decksPage: FC<decksPageProps> = async ({ params }) => {
     deckId: params.id,
   });
 
-
   return (
-    <div>
-      <span>{deck.name}</span>
-      <span>{deck.description}</span>
-    </div>
+    <section>
+      {/* <Heading importance="h3" className="max-w-[70%] overflow-hidden">
+          {deck.name}
+        </Heading> */}
+      <EditDeckAccordion
+        deckId={deck.id}
+        deckName={deck.name}
+        deckDescription={deck.description ?? ""}
+      />
+    </section>
   );
 };
 
