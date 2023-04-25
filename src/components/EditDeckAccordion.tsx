@@ -9,23 +9,34 @@ import Accordion, {
 } from "@/components/ui/Accordion";
 import Button from "@/components/ui/Button";
 import DeckForm from "@/components/DeckForm";
-import { createDeck } from "@/lib/fetch-data";
 
-interface AddDeckAccordionProps {}
+interface EditDeckAccordion {
+  deckId: string;
+  deckName: string;
+  deckDescription: string;
+}
 
-const AddDeckAccordion: FC<AddDeckAccordionProps> = ({}) => {
+const EditDeckAccordion: FC<EditDeckAccordion> = ({
+  deckId,
+  deckName,
+  deckDescription,
+}) => {
   return (
     <Accordion>
       <AccordionItem value="item-1">
         <AccordionTrigger className="flex flex-row justify-end" asChild>
-          <Button size="medium">Add Deck</Button>
+          <Button size="medium">Edit Deck</Button>
         </AccordionTrigger>
         <AccordionContent>
-          <DeckForm onSubmit={createDeck} actionButtonText="Create Deck" />
+          <DeckForm
+            onSubmit={() => {}}
+            actionButtonText="Save Deck"
+            initialValues={{ name: deckName, description: deckDescription }}
+          />
         </AccordionContent>
       </AccordionItem>
     </Accordion>
   );
 };
 
-export default AddDeckAccordion;
+export default EditDeckAccordion;
