@@ -1,5 +1,5 @@
 import { deckSchema, cardSchema, decksSchema } from "@/lib/schemas";
-import { headers as THeaders } from "next/headers";
+import { CardForCreation, DeckForCreation } from "@/types/types";
 
 export const getDeck = async ({
   deckId,
@@ -37,13 +37,31 @@ export const getDecks = async ({
   }
 };
 
-export const createDeck = async ({
-  name,
-  description,
-}: {
-  name: string;
-  description: string;
-}) => {
+export const createCard = async ({
+  question,
+  answer,
+  deckId,
+}: CardForCreation) => {
+  try {
+    const res = await fetch("http://localhost:3000/api/v2/cards", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        question,
+        answer,
+        deckId,
+      }),
+    });
+
+    if (!res.ok) throw new Error(`Failed to create card: ${res.statusText}`);
+  } catch (error: unknown) {
+    throw error;
+  }
+};
+
+export const createDeck = async ({ name, description }: DeckForCreation) => {
   try {
     const res = await fetch("http://localhost:3000/api/v2/decks", {
       method: "POST",
