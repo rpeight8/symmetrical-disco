@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
 const headingVariants = cva(
-  "flex justify-center items-center text-primary-complimentary-500",
+  "flex items-center text-primary-complimentary-500",
   {
     variants: {
       size: {
@@ -22,11 +22,10 @@ interface HeadingProps
   extends HTMLAttributes<HTMLHeadingElement>,
     VariantProps<typeof headingVariants> {
   importance: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  text?: string;
 }
 
 const Heading: FC<HeadingProps> = forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ className, importance, children, size, text, ...props }, ref) => {
+  ({ className, importance, children, size, ...props }, ref) => {
     const HeadingTag = importance;
 
     return (
@@ -35,7 +34,7 @@ const Heading: FC<HeadingProps> = forwardRef<HTMLHeadingElement, HeadingProps>(
         {...props}
         ref={ref}
       >
-        {text || children}
+        {children}
       </HeadingTag>
     );
   }
