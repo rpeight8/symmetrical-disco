@@ -1,19 +1,34 @@
 import db from "@/lib/db";
 import { options } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import { Card } from "@/types/types";
 
 // @ts-ignore
-export async function POST(request) {
+export async function POST(request: Request) {
   const session = await getServerSession(options);
   if (!session) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const data = await request.json();
+  const card = (await request.json()) as Card;
 
-  await db.card.create({
-    data,
+  const dbDeck = await db.deck.findUnique({
+    where: {
+      id: card.deckId,
+    },
   });
 
-  return new Response("Ok");
+  if (!dbDeck) {
+    return new Response("Deck not found", { status: 404 });
+  }
+
+  if (dbDeck.authorId !== session.user.id) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
+  const createdCard = await db.card.create({
+    data: card,
+  });
+
+  return new Response(JSON.stringify(createdCard), { status: 201 });
 }
