@@ -14,7 +14,7 @@ export interface HeaderProps
   ref?: React.Ref<HTMLButtonElement>;
 }
 
-const headerVariants = cva("flex justify-end");
+const headerVariants = cva("flex justify-end items-center");
 const Header = async ({ className }: HeaderProps) => {
   const session = await getServerSession(options);
 

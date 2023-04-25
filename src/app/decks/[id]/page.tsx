@@ -18,7 +18,6 @@ const decksPage: FC<decksPageProps> = async ({ params }) => {
     deckId: params.id,
   });
 
-  console.log(deck);
 
   return (
     <div>

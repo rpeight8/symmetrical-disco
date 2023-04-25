@@ -21,8 +21,8 @@ export default async function RootLayout({
         <NavigationSidebar />
         <div className="p-2">
           {/* @ts-expect-error Server Component */}
-          <Header className="mt-3.5" />
-          <main className="py-10">{children}</main>
+          <Header className="h-16" />
+          <main>{children}</main>
         </div>
       </body>
     </html>
