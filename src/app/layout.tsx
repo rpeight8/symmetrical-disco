@@ -22,7 +22,7 @@ export default async function RootLayout({
         <div className="p-2">
           {/* @ts-expect-error Server Component */}
           <Header className="h-16" />
-          <main>{children}</main>
+          <main className="mt-8">{children}</main>
         </div>
       </body>
     </html>
