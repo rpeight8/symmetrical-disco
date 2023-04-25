@@ -1,6 +1,7 @@
 import db from "@/lib/db";
 import { options } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import type { DeckForCreation } from "@/types/types";
 
 // @ts-ignore
 export async function GET() {
@@ -33,10 +34,7 @@ export async function POST(request: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const { name, description } = (await request.json()) as {
-    name: string;
-    description: string;
-  };
+  const { name, description } = (await request.json()) as DeckForCreation;
 
   const dbDeck = await db.deck.findUnique({
     where: {
@@ -52,7 +50,7 @@ export async function POST(request: Request) {
     return new Response("Deck already exists", { status: 400 });
   }
 
-  await db.deck.create({
+  const createdDeck = await db.deck.create({
     data: {
       name,
       description,
@@ -60,5 +58,5 @@ export async function POST(request: Request) {
     },
   });
 
-  return new Response("Ok");
+  return new Response(JSON.stringify(createdDeck), { status: 201 });
 }

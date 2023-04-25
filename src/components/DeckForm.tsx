@@ -8,6 +8,7 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Label from "@/components/ui/Label";
 import { useRouter } from "next/navigation";
+import type { DeckForCreation } from "@/types/types";
 
 interface DeckFormProps {
   initialValues?: {
@@ -15,7 +16,7 @@ interface DeckFormProps {
     description: string;
   };
   actionButtonText: string;
-  onSubmit({ name, description }: { name: string; description: string }): void;
+  onSubmit({ name, description }: DeckForCreation): void;
 }
 
 const DeckForm: FC<DeckFormProps> = ({
