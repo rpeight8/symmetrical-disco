@@ -10,7 +10,7 @@ interface NavigationToolbarOpenCloseButtonProps extends ButtonProps {
 }
 
 const navigationToolbarOpenCloseButtonVariants = cva(
-  "absolute grid grid-rows-1"
+  "absolute grid grid-rows-1 shadow-lg drop-shadow-lg backdrop-invert-1"
 );
 
 const navigationToolbarOpenCloseButtonIconVariants = cva(
