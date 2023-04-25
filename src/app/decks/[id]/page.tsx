@@ -5,6 +5,8 @@ import Heading from "@/components/ui/Heading";
 import EditDeckAccordion from "@/components/EditDeckAccordion";
 import DecksList from "@/components/DecksList";
 import Button from "@/components/ui/Button";
+import CardsList from "@/components/CardsList";
+import AddCardAccordion from "@/components/AddCardAccordion";
 
 interface decksPageProps {
   params: {
@@ -29,6 +31,15 @@ const decksPage: FC<decksPageProps> = async ({ params }) => {
         deckName={deck.name}
         deckDescription={deck.description ?? ""}
       />
+      <div className="flex flex-col mt-5">
+        <Button size="medium">Practice</Button>
+        <AddCardAccordion
+          deckId={deck.id}
+          question={""}
+          answer={""}
+        ></AddCardAccordion>
+        <CardsList cards={deck.cards}></CardsList>
+      </div>
     </section>
   );
 };
