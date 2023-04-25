@@ -4,22 +4,27 @@ import { getServerSession } from "next-auth";
 
 // @ts-ignore
 export async function GET() {
-  const session = await getServerSession(options);
-  console.log(`V2 Session in Decks route: ${JSON.stringify(session)}`);
-  if (!session) {
-    return new Response("Unauthorized", { status: 401 });
-  }
+  try {
+    const session = await getServerSession(options);
+    console.log(`V2 Session in Decks route: ${JSON.stringify(session)}`);
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
+    }
 
-  const dbDecks = await db.deck.findMany({
-    where: {
-      authorId: session.user.id,
-    },
-    include: {
-      cards: true,
-    },
-  });
-  console.log(`Found ${dbDecks.length} decks for user ${session.user.id}`);
-  return new Response(JSON.stringify(dbDecks));
+    const dbDecks = await db.deck.findMany({
+      where: {
+        authorId: session.user.id,
+      },
+      include: {
+        cards: true,
+      },
+    });
+    console.log(`Found ${dbDecks.length} decks for user ${session.user.id}`);
+    return new Response(JSON.stringify(dbDecks));
+  } catch (err) {
+    console.log(`Error in GET /decks: ${err}`);
+    return new Response("Error", { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {
@@ -42,9 +47,8 @@ export async function POST(request: Request) {
     },
   });
 
-  console.log(dbDeck);
-
   if (dbDeck) {
+    console.log(`Deck already exsists`);
     return new Response("Deck already exists", { status: 400 });
   }
 

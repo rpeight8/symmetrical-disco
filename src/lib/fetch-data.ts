@@ -14,7 +14,6 @@ export const getDeck = async ({
     });
     if (!res.ok) throw new Error(`Failed to fetch deck: ${res.statusText}`);
     const deck = await res.json();
-    console.log(`Deck: ${JSON.stringify(deck)}`);
     return deckSchema.parse(deck);
   } catch (error: unknown) {
     throw error;
@@ -56,6 +55,8 @@ export const createDeck = async ({
         description,
       }),
     });
+
+    if (!res.ok) throw new Error(`Failed to create deck: ${res.statusText}`);
   } catch (error: unknown) {
     throw error;
   }
