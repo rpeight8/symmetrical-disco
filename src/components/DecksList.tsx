@@ -1,9 +1,9 @@
 import { FC, HTMLAttributes } from "react";
-import type { Deck } from "@/lib/schemas";
+import type { Decks } from "@/types/types";
 import Link from "next/link";
 
 interface DecksListProps extends HTMLAttributes<HTMLUListElement> {
-  items: Deck[];
+  items: Decks;
 }
 
 const DecksList: FC<DecksListProps> = ({ items }) => {
