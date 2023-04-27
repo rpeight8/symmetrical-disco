@@ -1,7 +1,7 @@
 "use client";
 
 import "client-only";
-import { FC } from "react";
+import { FC, useCallback, useState } from "react";
 import Accordion, {
   AccordionItem,
   AccordionContent,
@@ -12,6 +12,7 @@ import CardForm from "@/components/CardForm";
 import { updateCard } from "@/lib/fetch-data";
 import { CardForUpdate } from "@/types/types";
 import Span from "@/components/ui/Span";
+import { useRouter } from "next/navigation";
 
 interface EditCardAccordionProps extends CardForUpdate {}
 
@@ -20,11 +21,15 @@ const onSubmit = async (card: CardForUpdate) => {
 };
 
 const EditCardAccordion: FC<EditCardAccordionProps> = ({
-  answer = "",
-  question = "",
+  question,
+  answer,
   id,
 }) => {
+  const router = useRouter();
   const titleComponent = <Span size="large">{question}</Span>;
+  const [newQuestion, setNewQuestion] = useState(question);
+  const [newAnswer, setNewAnswer] = useState(answer);
+
   return (
     <Accordion>
       <AccordionItem value="item-1">
@@ -36,9 +41,20 @@ const EditCardAccordion: FC<EditCardAccordionProps> = ({
           <Button size="medium">Edit Card</Button>
         </AccordionTrigger>
         <AccordionContent>
-          <CardForm<CardForUpdate>
-            onSubmit={onSubmit}
-            card={{ answer, id, question }}
+          <CardForm
+            onSubmit={async (event) => {
+              event.preventDefault();
+              await onSubmit({ id, question: newQuestion, answer: newAnswer });
+              router.refresh();
+            }}
+            onAnswerChange={useCallback((event) => {
+              setNewAnswer(event.target.value);
+            }, [])}
+            onQuestionChange={useCallback((event) => {
+              setNewQuestion(event.target.value);
+            }, [])}
+            question={newQuestion}
+            answer={newAnswer}
             actionButtonText="Save Card"
           />
         </AccordionContent>

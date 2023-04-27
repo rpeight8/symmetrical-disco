@@ -7,24 +7,25 @@ import { createDeck } from "@/lib/fetch-data";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Label from "@/components/ui/Label";
-import { useRouter } from "next/navigation";
 import type { Card, CardForCreation, CardForUpdate } from "@/types/types";
 
-interface CardFormProps<T extends CardForCreation | CardForUpdate> {
-  card: T;
+interface CardFormProps {
+  question: string;
+  answer: string;
   actionButtonText: string;
-  onSubmit(data: T): Promise<Card>;
+  onAnswerChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onQuestionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (event: React.FormEvent<HTMLButtonElement>) => void;
 }
 
-const CardForm = <T extends CardForCreation | CardForUpdate>({
+const CardForm = ({
   actionButtonText,
   onSubmit,
-  card,
-}: CardFormProps<T>) => {
-  const router = useRouter();
-  const [question, setQuestion] = useState<string>(card.question);
-  const [answer, setAnswer] = useState<string>(card.answer);
-
+  onQuestionChange,
+  onAnswerChange,
+  question,
+  answer,
+}: CardFormProps) => {
   return (
     <Form.Root className="text-primary-complimentary-500 flex flex-col gap-y-5">
       <Form.Field name="name" className="flex flex-col items-start">
@@ -35,7 +36,7 @@ const CardForm = <T extends CardForCreation | CardForUpdate>({
           <Input
             value={question}
             onChange={(event) => {
-              setQuestion(event.target.value);
+              onQuestionChange(event);
             }}
           />
         </Form.Control>
@@ -48,7 +49,7 @@ const CardForm = <T extends CardForCreation | CardForUpdate>({
           <Input
             value={answer}
             onChange={(event) => {
-              setAnswer(event.target.value);
+              onAnswerChange(event);
             }}
           />
         </Form.Control>
@@ -57,11 +58,7 @@ const CardForm = <T extends CardForCreation | CardForUpdate>({
         <Button
           size="medium"
           onClick={async (event) => {
-            event.preventDefault();
-            await onSubmit({ ...card, question, answer });
-            setAnswer("");
-            setQuestion("");
-            router.refresh();
+            onSubmit(event);
           }}
         >
           {actionButtonText}
