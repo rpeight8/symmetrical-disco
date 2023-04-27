@@ -1,4 +1,4 @@
-import { FC, forwardRef } from "react";
+import { FC, ReactElement, forwardRef } from "react";
 import * as RadixAccordion from "@radix-ui/react-accordion";
 import React from "react";
 
@@ -27,11 +27,15 @@ export const AccordionItem = forwardRef<
 
 AccordionItem.displayName = "AccordionItem";
 
+interface AccordionTriggerProps extends RadixAccordion.AccordionTriggerProps {
+  titleComponent?: React.ReactNode;
+}
 export const AccordionTrigger = forwardRef<
   HTMLButtonElement,
-  RadixAccordion.AccordionTriggerProps
->(({ children, className, ...props }, ref) => (
+  AccordionTriggerProps
+>(({ titleComponent, children, className, ...props }, ref) => (
   <RadixAccordion.Header className={className}>
+    {titleComponent}
     <RadixAccordion.Trigger {...props} ref={ref}>
       {children}
     </RadixAccordion.Trigger>
