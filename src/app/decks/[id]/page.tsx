@@ -18,7 +18,7 @@ interface decksPageProps {
 const decksPage: FC<decksPageProps> = async ({ params }) => {
   const deck = await getDeck({
     headers: { cookie: headers().get("cookie") ?? "" },
-    deckId: params.id,
+    data: { id: params.id },
   });
 
   return (
@@ -27,9 +27,9 @@ const decksPage: FC<decksPageProps> = async ({ params }) => {
           {deck.name}
         </Heading> */}
       <EditDeckAccordion
-        deckId={deck.id}
-        deckName={deck.name}
-        deckDescription={deck.description ?? ""}
+        id={deck.id}
+        name={deck.name}
+        description={deck.description ?? ""}
       />
       <div className="flex flex-col mt-5">
         <Button size="medium">Practice</Button>
