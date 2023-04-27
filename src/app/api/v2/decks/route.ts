@@ -58,5 +58,7 @@ export async function POST(request: Request) {
     },
   });
 
-  return new Response(JSON.stringify(createdDeck), { status: 201 });
+  return new Response(JSON.stringify({ ...createdDeck, cards: [] }), {
+    status: 201,
+  });
 }
