@@ -10,23 +10,23 @@ import Label from "@/components/ui/Label";
 import { useRouter } from "next/navigation";
 import type { DeckForCreation, DeckForUpdate } from "@/types/types";
 
-interface DeckFormProps<T extends DeckForCreation | DeckForUpdate> {
-  deck: T;
+interface DeckFormProps {
+  name: string;
+  description: string;
   actionButtonText: string;
-  onSubmit(data: T): void;
+  onNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (event: React.FormEvent<HTMLButtonElement>) => void;
 }
 
-const DeckForm = <T extends DeckForCreation | DeckForUpdate>({
+const DeckForm = ({
   actionButtonText,
   onSubmit,
-  deck,
-}: DeckFormProps<T>) => {
-  const router = useRouter();
-  const [name, setName] = useState<string>(deck.name);
-  const [description, setDescription] = useState<string>(
-    deck.description ?? ""
-  );
-
+  onNameChange,
+  onDescriptionChange,
+  name,
+  description,
+}: DeckFormProps) => {
   return (
     <Form.Root className="text-primary-complimentary-500 flex flex-col gap-y-5">
       <Form.Field name="name" className="flex flex-col items-start">
@@ -37,7 +37,7 @@ const DeckForm = <T extends DeckForCreation | DeckForUpdate>({
           <Input
             value={name}
             onChange={(event) => {
-              setName(event.target.value);
+              onNameChange(event);
             }}
           />
         </Form.Control>
@@ -50,7 +50,7 @@ const DeckForm = <T extends DeckForCreation | DeckForUpdate>({
           <Input
             value={description}
             onChange={(event) => {
-              setDescription(event.target.value);
+              onDescriptionChange(event);
             }}
           />
         </Form.Control>
@@ -59,11 +59,7 @@ const DeckForm = <T extends DeckForCreation | DeckForUpdate>({
         <Button
           size="medium"
           onClick={async (event) => {
-            event.preventDefault();
-            await onSubmit({ ...deck, name, description });
-            setDescription("");
-            setName("");
-            router.refresh();
+            onSubmit(event);
           }}
         >
           {actionButtonText}

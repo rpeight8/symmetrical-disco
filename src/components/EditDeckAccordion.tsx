@@ -1,7 +1,7 @@
 "use client";
 
 import "client-only";
-import { FC } from "react";
+import { FC, useCallback, useState } from "react";
 import Accordion, {
   AccordionItem,
   AccordionContent,
@@ -9,26 +9,49 @@ import Accordion, {
 } from "@/components/ui/Accordion";
 import Button from "@/components/ui/Button";
 import DeckForm from "@/components/DeckForm";
-import { DeckForUpdate } from "@/types/types";
+import { updateDeck } from "@/lib/fetch-data";
+import type { DeckForUpdate } from "@/types/types";
+import { useRouter } from "next/navigation";
 
-interface EditDeckAccordion extends DeckForUpdate {}
+interface EditDeckAccordionProps extends DeckForUpdate {}
 
-const EditDeckAccordion: FC<EditDeckAccordion> = ({
-  id,
-  name,
-  description,
-}) => {
+const onSubmit = (deck: DeckForUpdate) => {
+  return updateDeck({ data: deck });
+};
+
+const EditDeckAccordion: FC<EditDeckAccordionProps> = ({ id }) => {
+  const router = useRouter();
+  const [newName, setNewName] = useState<string>("");
+  const [newDescription, setNewDescription] = useState<string>("");
+
   return (
     <Accordion>
       <AccordionItem value="item-1">
         <AccordionTrigger className="flex flex-row justify-end" asChild>
-          <Button size="medium">Edit Deck</Button>
+          <Button size="medium">Add Deck</Button>
         </AccordionTrigger>
         <AccordionContent>
-          <DeckForm<DeckForUpdate>
-            onSubmit={() => {}}
-            actionButtonText="Save Deck"
-            deck={{ id, name, description }}
+          <DeckForm
+            name={newName}
+            description={newDescription}
+            onSubmit={async (event) => {
+              event.preventDefault();
+              await onSubmit({
+                id,
+                name: newName,
+                description: newDescription,
+              });
+              router.refresh();
+              setNewName("");
+              setNewDescription("");
+            }}
+            onNameChange={useCallback((event) => {
+              setNewName(event.target.value);
+            }, [])}
+            onDescriptionChange={useCallback((event) => {
+              setNewDescription(event.target.value);
+            }, [])}
+            actionButtonText="Create Deck"
           />
         </AccordionContent>
       </AccordionItem>
