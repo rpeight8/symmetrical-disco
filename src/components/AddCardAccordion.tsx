@@ -14,8 +14,8 @@ import { CardForCreation, CardForUpdate } from "@/types/types";
 
 interface AddCardAccordionProps extends CardForCreation {}
 
-const onSubmit = (card: CardForCreation) => {
-  createCard({ data: card });
+const onSubmit = async (card: CardForCreation) => {
+  return createCard({ data: card });
 };
 
 const AddCardAccordion: FC<AddCardAccordionProps> = ({

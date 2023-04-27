@@ -8,12 +8,12 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Label from "@/components/ui/Label";
 import { useRouter } from "next/navigation";
-import type { CardForCreation, CardForUpdate } from "@/types/types";
+import type { Card, CardForCreation, CardForUpdate } from "@/types/types";
 
 interface CardFormProps<T extends CardForCreation | CardForUpdate> {
   card: T;
   actionButtonText: string;
-  onSubmit(data: T): void;
+  onSubmit(data: T): Promise<Card>;
 }
 
 const CardForm = <T extends CardForCreation | CardForUpdate>({

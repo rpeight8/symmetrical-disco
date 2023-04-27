@@ -15,8 +15,8 @@ import Span from "@/components/ui/Span";
 
 interface EditCardAccordionProps extends CardForUpdate {}
 
-const onSubmit = (card: CardForUpdate) => {
-  updateCard({ data: card });
+const onSubmit = async (card: CardForUpdate) => {
+  return updateCard({ data: card });
 };
 
 const EditCardAccordion: FC<EditCardAccordionProps> = ({

@@ -4,6 +4,7 @@ import {
   DeckForCreation,
   CardForUpdate,
   RequestWithHeaders,
+  Card,
 } from "@/types/types";
 
 export const getDeck = async ({
@@ -39,7 +40,7 @@ export const getDecks = async ({ headers = {} }: RequestWithHeaders<{}>) => {
 export const createCard = async ({
   data,
   headers = {},
-}: RequestWithHeaders<CardForCreation>) => {
+}: RequestWithHeaders<CardForCreation>): Promise<Card> => {
   try {
     const { question, answer, deckId } = data;
     const res = await fetch("http://localhost:3000/api/v2/cards", {
@@ -56,6 +57,8 @@ export const createCard = async ({
     });
 
     if (!res.ok) throw new Error(`Failed to create card: ${res.statusText}`);
+    const card = await res.json();
+    return await cardSchema.parse(card);
   } catch (error: unknown) {
     throw error;
   }
@@ -108,7 +111,7 @@ export const getCards = async ({
 export const updateCard = async ({
   data,
   headers,
-}: RequestWithHeaders<CardForUpdate>) => {
+}: RequestWithHeaders<CardForUpdate>): Promise<Card> => {
   try {
     const { question, answer, id } = data;
     const res = await fetch(`http://localhost:3000/api/v2/cards/${id}`, {
@@ -124,6 +127,8 @@ export const updateCard = async ({
     });
 
     if (!res.ok) throw new Error(`Failed to update card: ${res.statusText}`);
+    const card = await res.json();
+    return await cardSchema.parse(card);
   } catch (error: unknown) {
     throw error;
   }
