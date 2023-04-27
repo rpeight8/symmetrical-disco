@@ -3,7 +3,6 @@ import { options } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { Card } from "@/types/types";
 
-// @ts-ignore
 export async function POST(request: Request) {
   const session = await getServerSession(options);
   if (!session) {

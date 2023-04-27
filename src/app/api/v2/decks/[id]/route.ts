@@ -14,7 +14,6 @@ export async function GET(
   const session = await getServerSession(options);
   const { id } = params;
 
-  console.log(`/decks[id]: ${id}}`);
   if (!session) {
     return new Response("Unauthorized", { status: 401 });
   }
