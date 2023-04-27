@@ -1,15 +1,18 @@
 import { deckSchema, cardSchema, decksSchema } from "@/lib/schemas";
-import { CardForCreation, DeckForCreation } from "@/types/types";
+import {
+  CardForCreation,
+  DeckForCreation,
+  CardForUpdate,
+  RequestWithHeaders,
+} from "@/types/types";
 
 export const getDeck = async ({
-  deckId,
-  headers,
-}: {
-  deckId: string;
-  headers?: { [key: string]: string };
-}) => {
+  data,
+  headers = {},
+}: RequestWithHeaders<{ id: string }>) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/v2/decks/${deckId}`, {
+    const { id } = data;
+    const res = await fetch(`http://localhost:3000/api/v2/decks/${id}`, {
       headers,
     });
     if (!res.ok) throw new Error(`Failed to fetch deck: ${res.statusText}`);
@@ -20,11 +23,7 @@ export const getDeck = async ({
   }
 };
 
-export const getDecks = async ({
-  headers,
-}: {
-  headers?: { [key: string]: string };
-} = {}) => {
+export const getDecks = async ({ headers = {} }: RequestWithHeaders<{}>) => {
   try {
     const res = await fetch("http://localhost:3000/api/v2/decks", {
       headers,
@@ -38,15 +37,16 @@ export const getDecks = async ({
 };
 
 export const createCard = async ({
-  question,
-  answer,
-  deckId,
-}: CardForCreation) => {
+  data,
+  headers = {},
+}: RequestWithHeaders<CardForCreation>) => {
   try {
+    const { question, answer, deckId } = data;
     const res = await fetch("http://localhost:3000/api/v2/cards", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...headers,
       },
       body: JSON.stringify({
         question,
@@ -61,12 +61,17 @@ export const createCard = async ({
   }
 };
 
-export const createDeck = async ({ name, description }: DeckForCreation) => {
+export const createDeck = async ({
+  data,
+  headers = {},
+}: RequestWithHeaders<DeckForCreation>) => {
   try {
+    const { name, description } = data;
     const res = await fetch("http://localhost:3000/api/v2/decks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...headers,
       },
       body: JSON.stringify({
         name,
@@ -81,22 +86,44 @@ export const createDeck = async ({ name, description }: DeckForCreation) => {
 };
 
 export const getCards = async ({
-  deckId,
-  headers,
-}: {
-  deckId: string;
-  headers?: Record<string, string>;
-}) => {
+  data,
+  headers = {},
+}: RequestWithHeaders<{ deckId: string }>) => {
   try {
+    const { deckId } = data;
     const res = await fetch(
       `http://localhost:3000/api/v2/decks/${deckId}/cards`,
       {
-        headers,
+        ...headers,
       }
     );
     if (!res.ok) throw new Error(`Failed to fetch cards: ${res.statusText}`);
     const cards = await res.json();
     return cardSchema.parse(cards);
+  } catch (error: unknown) {
+    throw error;
+  }
+};
+
+export const updateCard = async ({
+  data,
+  headers,
+}: RequestWithHeaders<CardForUpdate>) => {
+  try {
+    const { question, answer, id } = data;
+    const res = await fetch(`http://localhost:3000/api/v2/cards/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers,
+      },
+      body: JSON.stringify({
+        question,
+        answer,
+      }),
+    });
+
+    if (!res.ok) throw new Error(`Failed to update card: ${res.statusText}`);
   } catch (error: unknown) {
     throw error;
   }

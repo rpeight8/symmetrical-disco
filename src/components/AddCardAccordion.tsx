@@ -14,6 +14,10 @@ import { CardForCreation, CardForUpdate } from "@/types/types";
 
 interface AddCardAccordionProps extends CardForCreation {}
 
+const onSubmit = (card: CardForCreation) => {
+  createCard({ data: card });
+};
+
 const AddCardAccordion: FC<AddCardAccordionProps> = ({
   answer = "",
   question = "",
@@ -27,7 +31,7 @@ const AddCardAccordion: FC<AddCardAccordionProps> = ({
         </AccordionTrigger>
         <AccordionContent>
           <CardForm<CardForCreation>
-            onSubmit={createCard}
+            onSubmit={onSubmit}
             card={{ answer, deckId, question }}
             actionButtonText="Create Card"
           />

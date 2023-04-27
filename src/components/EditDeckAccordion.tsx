@@ -9,17 +9,14 @@ import Accordion, {
 } from "@/components/ui/Accordion";
 import Button from "@/components/ui/Button";
 import DeckForm from "@/components/DeckForm";
+import { DeckForUpdate } from "@/types/types";
 
-interface EditDeckAccordion {
-  deckId: string;
-  deckName: string;
-  deckDescription: string;
-}
+interface EditDeckAccordion extends DeckForUpdate {}
 
 const EditDeckAccordion: FC<EditDeckAccordion> = ({
-  deckId,
-  deckName,
-  deckDescription,
+  id,
+  name,
+  description,
 }) => {
   return (
     <Accordion>
@@ -28,10 +25,10 @@ const EditDeckAccordion: FC<EditDeckAccordion> = ({
           <Button size="medium">Edit Deck</Button>
         </AccordionTrigger>
         <AccordionContent>
-          <DeckForm
+          <DeckForm<DeckForUpdate>
             onSubmit={() => {}}
             actionButtonText="Save Deck"
-            initialValues={{ name: deckName, description: deckDescription }}
+            deck={{ id, name, description }}
           />
         </AccordionContent>
       </AccordionItem>

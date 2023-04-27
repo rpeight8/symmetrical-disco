@@ -8,26 +8,23 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Label from "@/components/ui/Label";
 import { useRouter } from "next/navigation";
-import type { DeckForCreation } from "@/types/types";
+import type { DeckForCreation, DeckForUpdate } from "@/types/types";
 
-interface DeckFormProps {
-  initialValues?: {
-    name: string;
-    description: string;
-  };
+interface DeckFormProps<T extends DeckForCreation | DeckForUpdate> {
+  deck: T;
   actionButtonText: string;
-  onSubmit({ name, description }: DeckForCreation): void;
+  onSubmit(data: T): void;
 }
 
-const DeckForm: FC<DeckFormProps> = ({
+const DeckForm = <T extends DeckForCreation | DeckForUpdate>({
   actionButtonText,
   onSubmit,
-  initialValues,
-}) => {
+  deck,
+}: DeckFormProps<T>) => {
   const router = useRouter();
-  const [name, setName] = useState<string>(initialValues?.name ?? "");
+  const [name, setName] = useState<string>(deck.name);
   const [description, setDescription] = useState<string>(
-    initialValues?.description ?? ""
+    deck.description ?? ""
   );
 
   return (
@@ -63,7 +60,7 @@ const DeckForm: FC<DeckFormProps> = ({
           size="medium"
           onClick={async (event) => {
             event.preventDefault();
-            await onSubmit({ name, description });
+            await onSubmit({ ...deck, name, description });
             setDescription("");
             setName("");
             router.refresh();

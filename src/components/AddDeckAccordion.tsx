@@ -10,8 +10,13 @@ import Accordion, {
 import Button from "@/components/ui/Button";
 import DeckForm from "@/components/DeckForm";
 import { createDeck } from "@/lib/fetch-data";
+import type { DeckForCreation } from "@/types/types";
 
 interface AddDeckAccordionProps {}
+
+const onSubmit = (deck: DeckForCreation) => {
+  createDeck({ data: deck });
+};
 
 const AddDeckAccordion: FC<AddDeckAccordionProps> = ({}) => {
   return (
@@ -21,7 +26,11 @@ const AddDeckAccordion: FC<AddDeckAccordionProps> = ({}) => {
           <Button size="medium">Add Deck</Button>
         </AccordionTrigger>
         <AccordionContent>
-          <DeckForm onSubmit={createDeck} actionButtonText="Create Deck" />
+          <DeckForm<DeckForCreation>
+            deck={{ name: "", description: "" }}
+            onSubmit={onSubmit}
+            actionButtonText="Create Deck"
+          />
         </AccordionContent>
       </AccordionItem>
     </Accordion>

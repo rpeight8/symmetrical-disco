@@ -13,7 +13,7 @@ import type { CardForCreation, CardForUpdate } from "@/types/types";
 interface CardFormProps<T extends CardForCreation | CardForUpdate> {
   card: T;
   actionButtonText: string;
-  onSubmit(card: T): void;
+  onSubmit(data: T): void;
 }
 
 const CardForm = <T extends CardForCreation | CardForUpdate>({
