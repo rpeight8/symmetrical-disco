@@ -1,12 +1,13 @@
 import { FC, SVGAttributes } from "react";
 import type { LucideIcon } from "lucide-react";
-import { SidebarOpen, SidebarClose } from "lucide-react";
+import { SidebarOpen, SidebarClose, Trash2 } from "lucide-react";
 import { cva, VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
 export const Icons = {
   SidebarOpen,
   SidebarClose,
+  Trash2,
 };
 
 type Icon = LucideIcon;
