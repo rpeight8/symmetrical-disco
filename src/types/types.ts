@@ -19,7 +19,7 @@ export type DeckForCreation = Omit<Deck, "id" | "cards" | "authorId">;
 export type DeckForUpdate = Omit<Deck, "cards" | "authorId">;
 export type RequestHeaders = { [key: string]: string };
 
-interface RequestWithHeaders<T> {
+export interface RequestWithHeaders<T> {
   data: T;
   headers?: RequestHeaders;
 }
