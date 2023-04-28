@@ -1,5 +1,5 @@
 import { deckSchema, cardSchema, decksSchema } from "@/lib/schemas";
-import {
+import type {
   CardForCreation,
   DeckForCreation,
   CardForUpdate,
