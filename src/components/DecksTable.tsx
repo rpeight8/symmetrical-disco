@@ -1,7 +1,8 @@
-import { Decks } from "@/lib/schemas";
+import { Decks } from "@/types/types";
 import { FC, HTMLAttributes } from "react";
 import Span from "@/components/ui/Span";
 import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 interface DecksTableProps extends HTMLAttributes<HTMLTableElement> {
   decks: Decks;
@@ -9,15 +10,20 @@ interface DecksTableProps extends HTMLAttributes<HTMLTableElement> {
 
 const DecksTable: FC<DecksTableProps> = ({ decks, className, ...props }) => {
   return (
-    <div className="overflow-x-hidden overflow-y-auto">
-      <table className="table-fixed flex flex-col">
+    <div
+      className={twMerge(
+        "overflow-x-hidden overflow-y-auto bg-primary-500",
+        className
+      )}
+    >
+      <table className="table-fixed flex flex-col bg-primary-500">
         <caption className="sr-only">Decks</caption>
         <thead>
           <tr>
-            <th>Deck Name</th>
+            <th className="sr-only">Deck Name</th>
           </tr>
         </thead>
-        <tbody className="flex flex-col gap-y-3">
+        <tbody className="flex flex-col gap-y-3 bg-primary-500">
           {decks.map((deck) => {
             return (
               <Link
@@ -27,8 +33,8 @@ const DecksTable: FC<DecksTableProps> = ({ decks, className, ...props }) => {
                 passHref
                 legacyBehavior
               >
-                <tr className="p-3 cursor-pointer bg-secondary-500 rounded-md">
-                  <td className="overflow-hidden ">
+                <tr className="p-3 cursor-pointer bg-secondary-500 rounded-md overflow-x-auto">
+                  <td className="">
                     <Span size="large">{deck.name}</Span>
                   </td>
                 </tr>
