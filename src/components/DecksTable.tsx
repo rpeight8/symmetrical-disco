@@ -6,29 +6,30 @@ import { twMerge } from "tailwind-merge";
 
 interface DecksTableProps extends HTMLAttributes<HTMLTableElement> {
   decks: Decks;
+  tbodyClassName?: string;
 }
 
-const DecksTable: FC<DecksTableProps> = ({ decks, className, ...props }) => {
+const DecksTable: FC<DecksTableProps> = ({
+  decks,
+  className,
+  tbodyClassName,
+  ...props
+}) => {
   return (
-    <div
-      className={twMerge(
-        "overflow-x-hidden overflow-y-auto bg-primary-500",
-        className
-      )}
-    >
-      <table className="table-fixed flex flex-col bg-primary-500">
+    <div className={twMerge("overflow-x-hidden overflow-y-auto", className)}>
+      <table className="table-fixed flex flex-col">
         <caption className="sr-only">Decks</caption>
         <thead>
           <tr>
             <th className="sr-only">Deck Name</th>
           </tr>
         </thead>
-        <tbody className="flex flex-col gap-y-3 bg-primary-500">
+        <tbody className={twMerge("flex flex-col gap-y-3", tbodyClassName)}>
           {decks.map((deck) => {
             return (
               <Link
                 key={deck.id}
-                href={`/decks/${deck.id}`}
+                href={`/deck/${deck.id}`}
                 className="flex-1 "
                 passHref
                 legacyBehavior
