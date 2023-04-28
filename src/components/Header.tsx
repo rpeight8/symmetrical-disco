@@ -6,6 +6,7 @@ import GoogleSignInButton from "@/components/GoogleSignInButton";
 import SignOutButton from "@/components/SignOutButton";
 import Button from "@/components/ui/Button";
 import { options } from "@/lib/auth";
+import Span from "@/components/ui/Span";
 
 export interface HeaderProps
   extends React.HTMLAttributes<HTMLElement>,
@@ -14,16 +15,27 @@ export interface HeaderProps
   ref?: React.Ref<HTMLButtonElement>;
 }
 
-const headerVariants = cva("flex justify-end items-center");
+const headerVariants = cva("flex justify-end items-center gap-x-3");
 const Header = async ({ className }: HeaderProps) => {
   const session = await getServerSession(options);
 
   return (
     <header className={twMerge(headerVariants(), className)}>
       {session ? (
-        <SignOutButton size="medium" />
+        <Span size="large" variant="underline">
+          {session.user.name}
+        </Span>
+      ) : null}
+      {session ? (
+        <SignOutButton
+          size="medium"
+          className="shadow-lg drop-shadow-lg backdrop-invert-1"
+        />
       ) : (
-        <GoogleSignInButton size="medium" />
+        <GoogleSignInButton
+          size="medium"
+          className="shadow-lg drop-shadow-lg backdrop-invert-1"
+        />
       )}
     </header>
   );

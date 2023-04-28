@@ -17,12 +17,12 @@ export default async function RootLayout({
   const session = await getServerSession(options);
   return (
     <html lang="en">
-      <body className="h-screen bg-primary-500">
+      <body className="h-screen bg-primary-500 scrollbar-thin scrollbar-track-secondary-200 scrollbar-thumb-secondary-700 overflow-y-scroll">
         <NavigationSidebar />
+        {/* @ts-expect-error Server Component */}
+        <Header className="h-16 fixed w-full pr-3 mt-3" />
         <div className="p-2">
-          {/* @ts-expect-error Server Component */}
-          <Header className="h-16" />
-          <main className="mt-8">{children}</main>
+          <main className="mt-24">{children}</main>
         </div>
       </body>
     </html>

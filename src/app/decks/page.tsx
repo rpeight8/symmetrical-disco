@@ -14,13 +14,14 @@ interface decksPageProps {
 /* @ts-expect-error Async Server Component */
 const decksPage: FC<decksPageProps> = async ({ params }) => {
   const decks = await getDecks({
+    data: {},
     headers: { cookie: headers().get("cookie") ?? "" },
   });
 
   return (
     <section>
       <AddDeckAccordion />
-      <DecksTable decks={decks} />
+      <DecksTable decks={decks} className="mt-4" />
     </section>
   );
 };
