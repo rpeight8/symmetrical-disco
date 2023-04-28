@@ -8,14 +8,14 @@ import Button from "@/components/ui/Button";
 import CardsList from "@/components/CardsList";
 import AddCardAccordion from "@/components/AddCardAccordion";
 
-interface decksPageProps {
+interface deckPageProps {
   params: {
     id: string;
   };
 }
 
 /* @ts-expect-error Async Server Component */
-const decksPage: FC<decksPageProps> = async ({ params }) => {
+const DeckPage: FC<deckPageProps> = async ({ params }) => {
   const deck = await getDeck({
     headers: { cookie: headers().get("cookie") ?? "" },
     data: { id: params.id },
@@ -44,4 +44,4 @@ const decksPage: FC<decksPageProps> = async ({ params }) => {
   );
 };
 
-export default decksPage;
+export default DeckPage;

@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { FC, ReactElement } from "react";
 import { getDecks } from "@/lib/fetch-data";
-import Heading from "@/components/ui/Heading";
+import { useRouter } from "next/navigation";
 import AddDeckAccordion from "@/components/AddDeckAccordion";
 import DecksTable from "@/components/DecksTable";
 
@@ -12,7 +12,8 @@ interface decksPageProps {
 }
 
 /* @ts-expect-error Async Server Component */
-const decksPage: FC<decksPageProps> = async ({ params }) => {
+const DecksPage: FC<decksPageProps> = async ({ params }) => {
+  const router = useRouter();
   const decks = await getDecks({
     data: {},
     headers: { cookie: headers().get("cookie") ?? "" },
@@ -26,4 +27,4 @@ const decksPage: FC<decksPageProps> = async ({ params }) => {
   );
 };
 
-export default decksPage;
+export default DecksPage;
