@@ -9,6 +9,9 @@ const spanVariants = cva("text-primary-complimentary-500", {
       medium: "text-base",
       large: "text-lg",
     },
+    variant: {
+      underline: "underline underline-offset-4",
+    },
   },
   defaultVariants: {
     size: "medium",
@@ -19,9 +22,18 @@ interface SpanProps
   extends HTMLAttributes<HTMLSpanElement>,
     VariantProps<typeof spanVariants> {}
 
-const Span: FC<SpanProps> = ({ children, className, size, ...props }) => {
+const Span: FC<SpanProps> = ({
+  children,
+  className,
+  size,
+  variant,
+  ...props
+}) => {
   return (
-    <span className={twMerge(spanVariants({ size }), className)} {...props}>
+    <span
+      className={twMerge(spanVariants({ size, variant }), className)}
+      {...props}
+    >
       {children}
     </span>
   );
