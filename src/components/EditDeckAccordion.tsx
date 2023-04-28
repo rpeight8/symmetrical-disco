@@ -28,7 +28,7 @@ const EditDeckAccordion: FC<EditDeckAccordionProps> = ({ id }) => {
     <Accordion>
       <AccordionItem value="item-1">
         <AccordionTrigger className="flex flex-row justify-end" asChild>
-          <Button size="medium">Add Deck</Button>
+          <Button size="medium">Edit Deck</Button>
         </AccordionTrigger>
         <AccordionContent>
           <DeckForm
@@ -51,7 +51,7 @@ const EditDeckAccordion: FC<EditDeckAccordionProps> = ({ id }) => {
             onDescriptionChange={useCallback((event) => {
               setNewDescription(event.target.value);
             }, [])}
-            actionButtonText="Create Deck"
+            actionButtonText="Save Deck"
           />
         </AccordionContent>
       </AccordionItem>
