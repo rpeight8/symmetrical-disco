@@ -48,7 +48,11 @@ export const AccordionContent = forwardRef<
   HTMLDivElement,
   RadixAccordion.AccordionContentProps
 >(({ children, className, ...props }, ref) => (
-  <RadixAccordion.Content {...props} ref={ref}>
+  <RadixAccordion.Content
+    className="data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
+    {...props}
+    ref={ref}
+  >
     <div className={className}>{children}</div>
   </RadixAccordion.Content>
 ));
