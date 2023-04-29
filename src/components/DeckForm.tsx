@@ -12,7 +12,7 @@ import type { DeckForCreation, DeckForUpdate } from "@/types/types";
 
 interface DeckFormProps {
   name: string;
-  description: string;
+  description?: string;
   actionButtonText: string;
   onNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

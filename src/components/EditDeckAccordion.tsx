@@ -19,10 +19,16 @@ const onSubmit = (deck: DeckForUpdate) => {
   return updateDeck({ data: deck });
 };
 
-const EditDeckAccordion: FC<EditDeckAccordionProps> = ({ id }) => {
+const EditDeckAccordion: FC<EditDeckAccordionProps> = ({
+  id,
+  name,
+  description,
+}) => {
   const router = useRouter();
-  const [newName, setNewName] = useState<string>("");
-  const [newDescription, setNewDescription] = useState<string>("");
+  const [newName, setNewName] = useState<string>(name);
+  const [newDescription, setNewDescription] = useState<string>(
+    description ?? ""
+  );
 
   return (
     <Accordion>
@@ -42,8 +48,6 @@ const EditDeckAccordion: FC<EditDeckAccordionProps> = ({ id }) => {
                 description: newDescription,
               });
               router.refresh();
-              setNewName("");
-              setNewDescription("");
             }}
             onNameChange={useCallback((event) => {
               setNewName(event.target.value);
