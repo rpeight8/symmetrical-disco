@@ -8,11 +8,17 @@ interface CardsListProps extends HTMLAttributes<HTMLUListElement> {
   cards: Cards;
 }
 
-const CardsList: FC<CardsListProps> = ({ cards }) => {
+const CardsList: FC<CardsListProps> = ({ cards, className }) => {
   return (
-    <ul>
+    <ul className={className}>
       {cards.map((card) => {
-        return <CardListItem key={card.id} card={card} />;
+        return (
+          <CardListItem
+            key={card.id}
+            card={card}
+            className="bg-primary-500 relative z-10"
+          />
+        );
       })}
     </ul>
   );

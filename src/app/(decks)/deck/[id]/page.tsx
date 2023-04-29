@@ -31,7 +31,7 @@ const DeckPage: FC<deckPageProps> = async ({ params }) => {
         name={deck.name}
         description={deck.description ?? ""}
       />
-      <div className="flex flex-col mt-5">
+      <div className="flex flex-col mt-5 bg-primary-500 relative z-10">
         <Button size="medium">Practice</Button>
         <AddCardAccordion
           deckId={deck.id}

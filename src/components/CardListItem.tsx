@@ -7,9 +7,9 @@ interface CardListItemProps extends HTMLAttributes<HTMLLIElement> {
   card: Card;
 }
 
-const CardListItem: FC<CardListItemProps> = ({ card }) => {
+const CardListItem: FC<CardListItemProps> = ({ card, className }) => {
   return (
-    <li key={card.id}>
+    <li key={card.id} className={className}>
       <EditCardAccordion {...card} />
     </li>
   );
