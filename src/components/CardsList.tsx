@@ -12,13 +12,7 @@ const CardsList: FC<CardsListProps> = ({ cards, className }) => {
   return (
     <ul className={className}>
       {cards.map((card) => {
-        return (
-          <CardListItem
-            key={card.id}
-            card={card}
-            className="bg-primary-500 relative z-10"
-          />
-        );
+        return <CardListItem key={card.id} card={card} className="mt-5" />;
       })}
     </ul>
   );

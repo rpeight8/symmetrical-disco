@@ -21,23 +21,10 @@ const DeckPage: FC<deckPageProps> = async ({ params }) => {
 
   return (
     <section>
-      {/* <Heading importance="h3" className="max-w-[70%] overflow-hidden">
-          {deck.name}
-        </Heading> */}
-      {/* <EditDeckAccordion
-        id={deck.id}
-        name={deck.name}
-        description={deck.description ?? ""}
-      /> */}
       <AddCardCollapsible deckId={deck.id}></AddCardCollapsible>
       <div className="flex flex-col mt-5 bg-primary-500 relative z-10">
         <Button size="medium">Practice</Button>
-        {/* <AddCardAccordion
-          deckId={deck.id}
-          question={""}
-          answer={""}
-        ></AddCardAccordion> */}
-        <CardsList cards={deck.cards}></CardsList>
+        <CardsList cards={deck.cards} className="mt-5"></CardsList>
       </div>
     </section>
   );
