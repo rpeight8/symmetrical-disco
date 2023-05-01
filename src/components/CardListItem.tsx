@@ -1,7 +1,7 @@
-import { Card } from "@/types/types";
+import type { Card } from "@/types/types";
 import { FC, HTMLAttributes } from "react";
-import Span from "@/components/ui/Span";
-import EditCardAccordion from "@/components/EditCardAccordion";
+import { twMerge } from "tailwind-merge";
+import CardItemCollapsible from "@/components/CardItemCollapsible";
 
 interface CardListItemProps extends HTMLAttributes<HTMLLIElement> {
   card: Card;
@@ -9,8 +9,8 @@ interface CardListItemProps extends HTMLAttributes<HTMLLIElement> {
 
 const CardListItem: FC<CardListItemProps> = ({ card, className }) => {
   return (
-    <li key={card.id} className={className}>
-      <EditCardAccordion {...card} />
+    <li className={twMerge("flex justify-between w-full", className)}>
+      <CardItemCollapsible {...card} />
     </li>
   );
 };
