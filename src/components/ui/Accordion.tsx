@@ -28,14 +28,14 @@ export const AccordionItem = forwardRef<
 AccordionItem.displayName = "AccordionItem";
 
 interface AccordionTriggerProps extends RadixAccordion.AccordionTriggerProps {
-  titleComponent?: React.ReactNode;
+  siblings?: React.ReactNode[];
 }
 export const AccordionTrigger = forwardRef<
   HTMLButtonElement,
   AccordionTriggerProps
->(({ titleComponent, children, className, ...props }, ref) => (
+>(({ siblings, children, className, ...props }, ref) => (
   <RadixAccordion.Header className={className}>
-    {titleComponent}
+    {siblings}
     <RadixAccordion.Trigger {...props} ref={ref}>
       {children}
     </RadixAccordion.Trigger>
