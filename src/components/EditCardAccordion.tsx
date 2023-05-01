@@ -26,7 +26,12 @@ const EditCardAccordion: FC<EditCardAccordionProps> = ({
   id,
 }) => {
   const router = useRouter();
-  const titleComponent = <Span size="large">{question}</Span>;
+  const titleComponent = (
+    <Span size="large" key="title">
+      {question}
+    </Span>
+  );
+  
   const [newQuestion, setNewQuestion] = useState(question);
   const [newAnswer, setNewAnswer] = useState(answer);
 
@@ -35,7 +40,7 @@ const EditCardAccordion: FC<EditCardAccordionProps> = ({
       <AccordionItem value="item-1">
         <AccordionTrigger
           className="flex flex-row justify-between items-center"
-          titleComponent={titleComponent}
+          siblings={[titleComponent]}
           asChild
         >
           <Button size="medium">Edit Card</Button>
