@@ -10,6 +10,7 @@ import Collapsible from "@/components/ui/Collapsible";
 import Span from "@/components/ui/Span";
 import { CardForUpdate } from "@/types/types";
 import { updateCard } from "@/lib/fetch-data";
+import Icon from "@/components/ui/Icon";
 
 interface CardItemCollapsibleProps {
   question: string;
@@ -49,25 +50,31 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
 
   const editButton = (
     <Button
-      size="medium"
+      size="small"
       onClick={() => {
         setEdit(!isEdit);
         setAnswerVisible(false);
       }}
     >
-      Edit
+      <Icon name="Edit3" size="small" />
     </Button>
   );
   const answerButton = (
     <Button
-      size="medium"
+      size="small"
       className="ml-auto"
       onClick={() => {
         setAnswerVisible(!isAnswerVisible);
         setEdit(false);
       }}
     >
-      Answer
+      <Icon name="Eye" size="small" />
+    </Button>
+  );
+
+  const deleteButton = (
+    <Button size="small" onClick={() => {}}>
+      <Icon name="Trash2" size="small" />
     </Button>
   );
 
@@ -104,13 +111,13 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
     <Collapsible
       isOpen={isEdit || isAnswerVisible}
       className="w-full"
-      triggerWrapperClassName="flex"
+      triggerWrapperClassName="flex gap-x-2"
       triggerSiblings={[
         <Span key={"title"} size="large">
           {question}
         </Span>,
       ]}
-      triggerComponents={[answerButton, editButton]}
+      triggerComponents={[answerButton, editButton, deleteButton]}
     >
       {collapsibleContent}
     </Collapsible>
