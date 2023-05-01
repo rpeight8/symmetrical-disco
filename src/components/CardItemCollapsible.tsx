@@ -2,7 +2,7 @@
 
 import "client-only";
 import { useRouter } from "next/navigation";
-import { FC, useCallback, useState } from "react";
+import { ChangeEvent, FC, useCallback, useState } from "react";
 import Button from "@/components/ui/Button";
 import CardForm from "@/components/CardForm";
 import { twMerge } from "tailwind-merge";
@@ -33,13 +33,19 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
   const [newQuestion, setNewQuestion] = useState<string>(question);
   const [newAnswer, setNewAnswer] = useState<string>(answer);
 
-  const handleNewAsnwer = useCallback((event) => {
-    setNewAnswer(event.target.value);
-  }, []);
+  const handleNewAsnwer = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setNewAnswer(event.target.value);
+    },
+    []
+  );
 
-  const handleNewQuestion = useCallback((event) => {
-    setNewQuestion(event.target.value);
-  }, []);
+  const handleNewQuestion = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setNewQuestion(event.target.value);
+    },
+    []
+  );
 
   const editButton = (
     <Button

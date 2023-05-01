@@ -2,7 +2,7 @@ import { FC } from "react";
 import * as RadixCollapsible from "@radix-ui/react-collapsible";
 import { twMerge } from "tailwind-merge";
 
-interface CollapsibleProps {
+interface CollapsibleProps extends RadixCollapsible.CollapsibleProps {
   isOpen: boolean;
   setOpen?: (isOpen: boolean) => void;
   triggerComponents: JSX.Element[];
