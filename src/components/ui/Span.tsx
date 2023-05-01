@@ -4,6 +4,9 @@ import { twMerge } from "tailwind-merge";
 
 const spanVariants = cva("text-primary-complimentary-500", {
   variants: {
+    screenReader: {
+      only: "sr-only",
+    },
     size: {
       small: "text-sm",
       medium: "text-base",
@@ -26,12 +29,16 @@ const Span: FC<SpanProps> = ({
   children,
   className,
   size,
+  screenReader,
   variant,
   ...props
 }) => {
   return (
     <span
-      className={twMerge(spanVariants({ size, variant }), className)}
+      className={twMerge(
+        spanVariants({ size, variant, screenReader }),
+        className
+      )}
       {...props}
     >
       {children}

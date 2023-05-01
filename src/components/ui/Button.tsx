@@ -4,11 +4,12 @@ import "client-only";
 import { FC, HTMLAttributes, forwardRef } from "react";
 import { VariantProps, cva } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
+import Span from "@/components/ui/Span";
 
 export interface ButtonProps
   extends HTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  text?: string;
+  screenReaderText?: string;
   ref?: React.Ref<HTMLButtonElement>;
 }
 
@@ -76,7 +77,7 @@ const buttonVariants = cva(
 const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      text,
+      screenReaderText,
       position,
       variant,
       disabled,
@@ -109,7 +110,10 @@ const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled}
       >
-        {text ? <span>{text}</span> : children}
+        {screenReaderText && (
+          <Span screenReader="only">{screenReaderText}</Span>
+        )}
+        {children}
       </button>
     );
   }
