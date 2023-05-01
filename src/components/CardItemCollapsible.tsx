@@ -51,6 +51,7 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
   const editButton = (
     <Button
       size="small"
+      screenReaderText="Edit Card"
       onClick={() => {
         setEdit(!isEdit);
         setAnswerVisible(false);
@@ -62,6 +63,7 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
   const answerButton = (
     <Button
       size="small"
+      screenReaderText="Show Answer for Card"
       className="ml-auto"
       onClick={() => {
         setAnswerVisible(!isAnswerVisible);
@@ -73,7 +75,7 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
   );
 
   const deleteButton = (
-    <Button size="small" onClick={() => {}}>
+    <Button size="small" screenReaderText="Delete Card" onClick={() => {}}>
       <Icon name="Trash2" size="small" />
     </Button>
   );
