@@ -9,7 +9,7 @@ import { twMerge } from "tailwind-merge";
 import Collapsible from "@/components/ui/Collapsible";
 import Span from "@/components/ui/Span";
 import { CardForUpdate } from "@/types/types";
-import { updateCard } from "@/lib/fetch-data";
+import { deleteCard, updateCard } from "@/lib/fetch-data";
 import Icon from "@/components/ui/Icon";
 
 interface CardItemCollapsibleProps {
@@ -52,10 +52,10 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
     <Button
       size="small"
       screenReaderText="Edit Card"
-      onClick={() => {
+      onClick={useCallback(() => {
         setEdit(!isEdit);
         setAnswerVisible(false);
-      }}
+      }, [isEdit])}
     >
       <Icon name="Edit3" size="small" />
     </Button>
@@ -65,17 +65,24 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
       size="small"
       screenReaderText="Show Answer for Card"
       className="ml-auto"
-      onClick={() => {
+      onClick={useCallback(() => {
         setAnswerVisible(!isAnswerVisible);
         setEdit(false);
-      }}
+      }, [isAnswerVisible])}
     >
       <Icon name="Eye" size="small" />
     </Button>
   );
 
   const deleteButton = (
-    <Button size="small" screenReaderText="Delete Card" onClick={() => {}}>
+    <Button
+      size="small"
+      screenReaderText="Delete Card"
+      onClick={useCallback(async () => {
+        await deleteCard({ data: { id } });
+        router.refresh();
+      }, [id, router])}
+    >
       <Icon name="Trash2" size="small" />
     </Button>
   );
