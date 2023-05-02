@@ -8,15 +8,11 @@ import CardForm from "@/components/CardForm";
 import { twMerge } from "tailwind-merge";
 import Collapsible from "@/components/ui/Collapsible";
 import Span from "@/components/ui/Span";
-import { CardForUpdate } from "@/types/types";
+import { Card, CardForUpdate } from "@/types/types";
 import { deleteCard, updateCard } from "@/lib/fetch-data";
 import Icon from "@/components/ui/Icon";
 
-interface CardItemCollapsibleProps {
-  question: string;
-  answer: string;
-  id: string;
-}
+interface CardItemCollapsibleProps extends Card {}
 
 const onSubmit = async (card: CardForUpdate) => {
   return updateCard({ data: card });
