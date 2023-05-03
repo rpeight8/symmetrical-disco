@@ -3,7 +3,9 @@ import { FC, ReactElement } from "react";
 import { getDeck } from "@/lib/fetch-data";
 import Button from "@/components/ui/Button";
 import CardsList from "@/components/CardsList";
-import AddCardCollapsible from "@/components/AddCardCollapsible";
+
+import Heading from "@/components/ui/Heading";
+import CardToolbar from "@/components/CardToolbar";
 
 interface deckPageProps {
   params: {
@@ -20,7 +22,13 @@ const DeckPage: FC<deckPageProps> = async ({ params }) => {
 
   return (
     <section>
-      <AddCardCollapsible deckId={deck.id}></AddCardCollapsible>
+      <div>
+        <Heading importance="h2" size="large">
+          {deck.name}
+        </Heading>
+      </div>
+      <CardToolbar deck={deck}></CardToolbar>
+      <div></div>
       <div className="flex flex-col mt-5">
         <Button size="medium">Practice</Button>
         <CardsList cards={deck.cards} className="mt-5"></CardsList>
