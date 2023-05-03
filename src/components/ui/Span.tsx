@@ -34,15 +34,17 @@ const Span: FC<SpanProps> = ({
   ...props
 }) => {
   return (
-    <span
-      className={twMerge(
-        spanVariants({ size, variant, screenReader }),
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </span>
+    <div className="overflow-x-auto">
+      <span
+        className={twMerge(
+          spanVariants({ size, variant, screenReader }),
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </span>
+    </div>
   );
 };
 
