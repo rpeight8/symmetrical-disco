@@ -22,11 +22,9 @@ const DeckPage: FC<deckPageProps> = async ({ params }) => {
 
   return (
     <section>
-      <div>
-        <Heading importance="h2" size="large">
-          {deck.name}
-        </Heading>
-      </div>
+      <Heading importance="h2" size="large">
+        {deck.name}
+      </Heading>
       <CardToolbar deck={deck}></CardToolbar>
       <div></div>
       <div className="flex flex-col mt-5">
