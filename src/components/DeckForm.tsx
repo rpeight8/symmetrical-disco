@@ -12,7 +12,7 @@ import type { DeckForCreation, DeckForUpdate } from "@/types/types";
 
 interface DeckFormProps {
   name: string;
-  description?: string;
+  description?: string | null;
   actionButtonText: string;
   onNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onDescriptionChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -27,6 +27,7 @@ const DeckForm = ({
   name,
   description,
 }: DeckFormProps) => {
+  description = description ?? "";
   return (
     <Form.Root className="text-primary-complimentary-500 flex flex-col gap-y-5">
       <Form.Field name="name" className="flex flex-col items-start">
