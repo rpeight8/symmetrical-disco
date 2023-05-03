@@ -29,13 +29,15 @@ const Heading: FC<HeadingProps> = forwardRef<HTMLHeadingElement, HeadingProps>(
     const HeadingTag = importance;
 
     return (
-      <HeadingTag
-        className={twMerge(headingVariants({ size }), className)}
-        {...props}
-        ref={ref}
-      >
-        {children}
-      </HeadingTag>
+      <div className="overflow-x-auto">
+        <HeadingTag
+          className={twMerge(headingVariants({ size }), className)}
+          {...props}
+          ref={ref}
+        >
+          {children}
+        </HeadingTag>
+      </div>
     );
   }
 );
