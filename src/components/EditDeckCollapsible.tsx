@@ -13,7 +13,7 @@ import DeckForm from "@/components/DeckForm";
 
 interface EditDeckCollapsibleProps extends DeckForUpdate {
   Portal?: typeof RadixPortal.Root;
-  portalId?: string;
+  portalRef?: React.RefObject<HTMLDivElement>;
   isOpen?: boolean;
   setOpen?: (isOpen: boolean) => void;
 }
@@ -27,7 +27,7 @@ const AddCardCollapsible: FC<EditDeckCollapsibleProps> = ({
   name,
   description,
   Portal,
-  portalId,
+  portalRef,
   isOpen: outerIsOpen,
   setOpen: outerSetOpen,
 }) => {
@@ -78,8 +78,8 @@ const AddCardCollapsible: FC<EditDeckCollapsibleProps> = ({
         </Button>,
       ]}
     >
-      {(Portal && portalId && (
-        <Portal container={document.getElementById(portalId)}>{content}</Portal>
+      {(Portal && portalRef && (
+        <Portal container={portalRef.current}>{content}</Portal>
       )) ||
         content}
     </Collapsible>

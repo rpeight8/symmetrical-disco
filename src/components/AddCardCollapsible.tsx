@@ -1,7 +1,7 @@
 "use client";
 
 import "client-only";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
 import Collapsible from "@/components/ui/Collapsible";
@@ -13,7 +13,7 @@ import * as RadixPortal from "@radix-ui/react-portal";
 interface AddCardCollapsibleProps {
   deckId: string;
   Portal?: typeof RadixPortal.Root;
-  portalId?: string;
+  portalRef?: React.RefObject<HTMLDivElement>;
   isOpen?: boolean;
   setOpen?: (isOpen: boolean) => void;
 }
@@ -25,7 +25,7 @@ const onSubmit = async (card: CardForCreation) => {
 const AddCardCollapsible: FC<AddCardCollapsibleProps> = ({
   deckId,
   Portal,
-  portalId,
+  portalRef,
   isOpen: outerIsOpen,
   setOpen: outerSetOpen,
 }) => {
@@ -74,8 +74,8 @@ const AddCardCollapsible: FC<AddCardCollapsibleProps> = ({
         </Button>,
       ]}
     >
-      {(Portal && portalId && (
-        <Portal container={document.getElementById(portalId)}>{content}</Portal>
+      {(Portal && portalRef && (
+        <Portal container={portalRef.current}>{content}</Portal>
       )) ||
         content}
     </Collapsible>
