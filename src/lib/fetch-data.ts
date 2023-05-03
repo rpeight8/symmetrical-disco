@@ -8,6 +8,7 @@ import type {
   DeckForUpdate,
   Deck,
   CardForDeletion,
+  DeckForDeletion,
 } from "@/types/types";
 
 export const getDeck = async ({
@@ -114,6 +115,26 @@ export const updateDeck = async ({
     if (!res.ok) throw new Error(`Failed to update deck: ${res.statusText}`);
     const deck = await res.json();
     return deckSchema.parse(deck);
+  } catch (error: unknown) {
+    throw error;
+  }
+};
+
+export const deleteDeck = async ({
+  data,
+  headers,
+}: RequestWithHeaders<DeckForDeletion>): Promise<void> => {
+  try {
+    const { id } = data;
+    const res = await fetch(`http://localhost:3000/api/v2/decks/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers,
+      },
+    });
+
+    if (!res.ok) throw new Error(`Failed to delete deck: ${res.statusText}`);
   } catch (error: unknown) {
     throw error;
   }
