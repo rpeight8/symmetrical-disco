@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { deleteCard } from "@/lib/fetch-data";
 import Button from "@/components/ui/Button";
 import ConfirmDialog from "./ConfirmDialog";
+import { twMerge } from "tailwind-merge";
+import Icon from "@/components/ui/Icon";
 
 interface CardToolbarProps {
   card: Card;
@@ -14,7 +16,12 @@ interface CardToolbarProps {
   portalRef: React.RefObject<HTMLDivElement>;
 }
 
-const CardToolbar: FC<CardToolbarProps> = ({ card, Portal, portalRef }) => {
+const CardToolbar: FC<CardToolbarProps> = ({
+  card,
+  Portal,
+  portalRef,
+  className,
+}) => {
   const router = useRouter();
   const [isDelete, setDelete] = useState<boolean>(false);
   const [isShowAnswerOpen, setShowAnswerOpen] = useState<boolean>(false);
@@ -45,7 +52,7 @@ const CardToolbar: FC<CardToolbarProps> = ({ card, Portal, portalRef }) => {
         setOpen={setDelete}
         onConfirm={onDeleteConfirm}
       />
-      <div className="flex gap-x-2">
+      <div className={twMerge("flex gap-x-2", className)}>
         <ShowAnswerCollapsible
           isOpen={isShowAnswerOpen}
           setOpen={openShowAnswer}
@@ -60,7 +67,9 @@ const CardToolbar: FC<CardToolbarProps> = ({ card, Portal, portalRef }) => {
           Portal={Portal}
           portalRef={portalRef}
         />
-        <Button onClick={() => setDelete(!isDelete)}>Delete</Button>
+        <Button size="small" onClick={() => setDelete(!isDelete)}>
+          <Icon size="small" name="Trash2" />
+        </Button>
       </div>
     </>
   );

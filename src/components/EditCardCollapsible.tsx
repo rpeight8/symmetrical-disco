@@ -9,6 +9,7 @@ import CardForm from "@/components/CardForm";
 import { updateCard } from "@/lib/fetch-data";
 import type { CardForUpdate } from "@/types/types";
 import * as RadixPortal from "@radix-ui/react-portal";
+import Icon from "@/components/ui/Icon";
 
 interface EditDeckCollapsibleProps extends CardForUpdate {
   Portal?: typeof RadixPortal.Root;
@@ -70,8 +71,8 @@ const EditCardCollapsible: FC<EditDeckCollapsibleProps> = ({
       setOpen={setOpen}
       triggerWrapperClassName="flex flex-end"
       triggerComponents={[
-        <Button key="editCard" size="medium">
-          Edit Deck
+        <Button size="small" key="editCard">
+          <Icon size="small" name="Edit3" />
         </Button>,
       ]}
     >

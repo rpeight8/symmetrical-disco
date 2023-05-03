@@ -17,7 +17,7 @@ const CardListItem: FC<CardListItemProps> = ({ card, className }) => {
 
   return (
     <li className={twMerge("flex flex-col w-full", className)}>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between gap-x-2">
         <Heading importance="h3" size="large">
           {card.question}
         </Heading>
