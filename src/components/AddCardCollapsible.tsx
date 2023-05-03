@@ -8,56 +8,76 @@ import Collapsible from "@/components/ui/Collapsible";
 import CardForm from "@/components/CardForm";
 import { createCard } from "@/lib/fetch-data";
 import type { CardForCreation } from "@/types/types";
+import * as RadixPortal from "@radix-ui/react-portal";
 
 interface AddCardCollapsibleProps {
   deckId: string;
+  Portal?: typeof RadixPortal.Root;
+  portalId?: string;
+  isOpen?: boolean;
+  setOpen?: (isOpen: boolean) => void;
 }
 
 const onSubmit = async (card: CardForCreation) => {
   return createCard({ data: card });
 };
 
-const AddCardCollapsible: FC<AddCardCollapsibleProps> = ({ deckId }) => {
+const AddCardCollapsible: FC<AddCardCollapsibleProps> = ({
+  deckId,
+  Portal,
+  portalId,
+  isOpen: outerIsOpen,
+  setOpen: outerSetOpen,
+}) => {
   const router = useRouter();
-  const [isOpen, setOpen] = useState<boolean>(false);
+  const [innerIsOpen, innerSetOpen] = useState<boolean>(false);
   const [question, setQuestion] = useState<string>("");
   const [answer, setAnswer] = useState<string>("");
+
+  const isOpen = outerIsOpen ?? innerIsOpen;
+  const setOpen = outerSetOpen ?? innerSetOpen;
+
+  const content = (
+    <CardForm
+      onSubmit={async (event) => {
+        event.preventDefault();
+        await onSubmit({
+          deckId,
+          question,
+          answer,
+        });
+        router.refresh();
+        setQuestion("");
+        setAnswer("");
+        setOpen(false);
+      }}
+      onAnswerChange={useCallback((event) => {
+        setAnswer(event.target.value);
+      }, [])}
+      onQuestionChange={useCallback((event) => {
+        setQuestion(event.target.value);
+      }, [])}
+      question={question}
+      answer={answer}
+      actionButtonText="Add Card"
+    />
+  );
 
   return (
     <Collapsible
       isOpen={isOpen}
       setOpen={setOpen}
-      className="w-full"
       triggerWrapperClassName="flex flex-end"
       triggerComponents={[
-        <Button key="addCard" className="ml-auto" size="medium">
-          Create Card
+        <Button key="addCard" size="medium">
+          Add Card
         </Button>,
       ]}
     >
-      <CardForm
-        onSubmit={async (event) => {
-          event.preventDefault();
-          await onSubmit({
-            deckId,
-            question,
-            answer,
-          });
-          router.refresh();
-          setQuestion("");
-          setAnswer("");
-          setOpen(false);
-        }}
-        onAnswerChange={useCallback((event) => {
-          setAnswer(event.target.value);
-        }, [])}
-        onQuestionChange={useCallback((event) => {
-          setQuestion(event.target.value);
-        }, [])}
-        question={question}
-        answer={answer}
-        actionButtonText="Save Card"
-      />
+      {(Portal && portalId && (
+        <Portal container={document.getElementById(portalId)}>{content}</Portal>
+      )) ||
+        content}
     </Collapsible>
   );
 };
