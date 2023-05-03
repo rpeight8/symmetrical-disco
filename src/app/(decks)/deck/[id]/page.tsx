@@ -5,7 +5,7 @@ import Button from "@/components/ui/Button";
 import CardsList from "@/components/CardsList";
 
 import Heading from "@/components/ui/Heading";
-import CardToolbar from "@/components/CardToolbar";
+import DeckToolbar from "@/components/DeckToolbar";
 
 interface deckPageProps {
   params: {
@@ -25,7 +25,7 @@ const DeckPage: FC<deckPageProps> = async ({ params }) => {
       <Heading importance="h2" size="large">
         {deck.name}
       </Heading>
-      <CardToolbar deck={deck}></CardToolbar>
+      <DeckToolbar deck={deck}></DeckToolbar>
       <div></div>
       <div className="flex flex-col mt-5">
         <Button size="medium">Practice</Button>

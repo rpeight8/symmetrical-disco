@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { FC } from "react";
 import { getDecks } from "@/lib/fetch-data";
 import DecksTable from "@/components/DecksTable";
-import DeckToolbar from "@/components/DeckToolbar";
+import DecksToolbar from "@/components/DecksToolbar";
 
 interface decksPageProps {
   params: {
@@ -19,7 +19,7 @@ const DecksPage: FC<decksPageProps> = async ({ params }) => {
 
   return (
     <section>
-      <DeckToolbar />
+      <DecksToolbar />
       <DecksTable
         decks={decks}
         className="mt-4"
