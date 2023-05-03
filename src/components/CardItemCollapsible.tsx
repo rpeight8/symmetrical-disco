@@ -11,6 +11,7 @@ import Span from "@/components/ui/Span";
 import { Card, CardForUpdate } from "@/types/types";
 import { deleteCard, updateCard } from "@/lib/fetch-data";
 import Icon from "@/components/ui/Icon";
+import Dialog from "@/components/ui/Dialog";
 
 interface CardItemCollapsibleProps extends Card {}
 
@@ -24,7 +25,7 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
   id,
 }) => {
   const router = useRouter();
-
+  const [isDelete, setDelete] = useState<boolean>(false);
   const [isAnswerVisible, setAnswerVisible] = useState(false);
   const [isEdit, setEdit] = useState(false);
   const [newQuestion, setNewQuestion] = useState<string>(question);
@@ -75,9 +76,8 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
       size="small"
       screenReaderText="Delete Card"
       onClick={useCallback(async () => {
-        await deleteCard({ data: { id } });
-        router.refresh();
-      }, [id, router])}
+        setDelete(true);
+      }, [])}
     >
       <Icon name="Trash2" size="small" />
     </Button>
@@ -113,19 +113,41 @@ const CardItemCollapsible: FC<CardItemCollapsibleProps> = ({
   }
 
   return (
-    <Collapsible
-      isOpen={isEdit || isAnswerVisible}
-      className="w-full"
-      triggerWrapperClassName="flex gap-x-2"
-      triggerSiblings={[
-        <Span key={"title"} size="large">
-          {question}
-        </Span>,
-      ]}
-      triggerComponents={[answerButton, editButton, deleteButton]}
-    >
-      {collapsibleContent}
-    </Collapsible>
+    <>
+      <Dialog
+        isOpen={isDelete}
+        onOpenChange={setDelete}
+        title="Confirm Deletion"
+        buttons={[
+          <Button
+            key="delete"
+            size="medium"
+            onClick={async () => {
+              await deleteCard({ data: { id } });
+              router.refresh();
+              setDelete(false);
+            }}
+          >
+            {" "}
+            Delete
+          </Button>,
+        ]}
+        description={`Are you sure you want to delete Card with question: ${question}`}
+      />
+      <Collapsible
+        isOpen={isEdit || isAnswerVisible}
+        className="w-full"
+        triggerWrapperClassName="flex gap-x-2"
+        triggerSiblings={[
+          <Span key={"title"} size="large">
+            {question}
+          </Span>,
+        ]}
+        triggerComponents={[answerButton, editButton, deleteButton]}
+      >
+        {collapsibleContent}
+      </Collapsible>
+    </>
   );
 };
 
