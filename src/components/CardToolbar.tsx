@@ -15,8 +15,6 @@ interface CardToolbarProps {
   deck: Deck;
 }
 
-const portalId = "card-toolbar-portal";
-
 const CardToolbar: FC<CardToolbarProps> = ({ deck }) => {
   const router = useRouter();
   const portalRef = useRef<HTMLDivElement | null>(null);
@@ -74,7 +72,7 @@ const CardToolbar: FC<CardToolbarProps> = ({ deck }) => {
             Delete Deck
           </Button>
         </div>
-        <div id={portalId} ref={portalRef}></div>
+        <div ref={portalRef}></div>
       </div>
     </>
   );
