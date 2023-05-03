@@ -1,9 +1,8 @@
 import { headers } from "next/headers";
-import { FC, ReactElement } from "react";
+import { FC } from "react";
 import { getDecks } from "@/lib/fetch-data";
-import { useRouter, useParams } from "next/navigation";
-import AddDeckAccordion from "@/components/AddDeckAccordion";
 import DecksTable from "@/components/DecksTable";
+import DeckToolbar from "@/components/DeckToolbar";
 
 interface decksPageProps {
   params: {
@@ -20,7 +19,7 @@ const DecksPage: FC<decksPageProps> = async ({ params }) => {
 
   return (
     <section>
-      <AddDeckAccordion />
+      <DeckToolbar />
       <DecksTable
         decks={decks}
         className="mt-4"
