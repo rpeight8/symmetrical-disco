@@ -4,7 +4,6 @@ import { getDeck } from "@/lib/fetch-data";
 import Button from "@/components/ui/Button";
 import CardsList from "@/components/CardsList";
 import AddCardCollapsible from "@/components/AddCardCollapsible";
-// import AddCardAccordion from "@/components/AddCardAccordion";
 
 interface deckPageProps {
   params: {
@@ -22,7 +21,7 @@ const DeckPage: FC<deckPageProps> = async ({ params }) => {
   return (
     <section>
       <AddCardCollapsible deckId={deck.id}></AddCardCollapsible>
-      <div className="flex flex-col mt-5 bg-primary-500 relative z-10">
+      <div className="flex flex-col mt-5">
         <Button size="medium">Practice</Button>
         <CardsList cards={deck.cards} className="mt-5"></CardsList>
       </div>
