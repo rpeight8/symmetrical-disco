@@ -56,6 +56,8 @@ model Deck {
 	description String?
 	cards Card[]
 	authorId String
+	updatedAt DateTime @updatedAt
+	createdAt DateTime @default(now())
 	author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
 	@@unique([name, authorId])
@@ -66,7 +68,12 @@ model Card {
 	question String
 	answer String
 	deckId String
+	updatedAt DateTime @updatedAt
+	nextReview DateTime?
+	createdAt DateTime @default(now())
 	deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+	@@index ([deckId, nextReview])
 }
 
 
