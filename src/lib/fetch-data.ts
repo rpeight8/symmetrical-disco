@@ -1,4 +1,9 @@
-import { deckSchema, cardSchema, decksSchema } from "@/lib/schemas";
+import {
+  deckSchema,
+  cardSchema,
+  decksSchema,
+  cardsSchema,
+} from "@/lib/schemas";
 import type {
   CardForCreation,
   DeckForCreation,
@@ -215,12 +220,15 @@ export const getCardsForReview = async ({
     const res = await fetch(
       `http://localhost:3000/api/v2/decks/${deckId}/cards/review`,
       {
-        ...headers,
+        method: "GET",
+        headers: {
+          ...headers,
+        },
       }
     );
     if (!res.ok) throw new Error(`Failed to fetch cards: ${res.statusText}`);
     const cards = await res.json();
-    return cardSchema.parse(cards);
+    return cardsSchema.parse(cards);
   } catch (error: unknown) {
     throw error;
   }

@@ -1,11 +1,11 @@
 import { headers } from "next/headers";
 import { FC, ReactElement } from "react";
 import { getDeck } from "@/lib/fetch-data";
-import Button from "@/components/ui/Button";
 import CardsList from "@/components/CardsList";
 
 import Heading from "@/components/ui/Heading";
 import DeckToolbar from "@/components/DeckToolbar";
+import ReviewButton from "@/components/ReviewButton";
 
 interface deckPageProps {
   params: {
@@ -28,7 +28,7 @@ const DeckPage: FC<deckPageProps> = async ({ params }) => {
       <DeckToolbar deck={deck}></DeckToolbar>
       <div></div>
       <div className="flex flex-col mt-5">
-        <Button size="medium">Practice</Button>
+        <ReviewButton deck={deck} />
         <CardsList cards={deck.cards} className="mt-5"></CardsList>
       </div>
     </section>
