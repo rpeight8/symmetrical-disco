@@ -205,3 +205,23 @@ export const deleteCard = async ({
     throw error;
   }
 };
+
+export const getCardsForReview = async ({
+  data,
+  headers = {},
+}: RequestWithHeaders<{ deckId: string }>) => {
+  try {
+    const { deckId } = data;
+    const res = await fetch(
+      `http://localhost:3000/api/v2/decks/${deckId}/cards/review`,
+      {
+        ...headers,
+      }
+    );
+    if (!res.ok) throw new Error(`Failed to fetch cards: ${res.statusText}`);
+    const cards = await res.json();
+    return cardSchema.parse(cards);
+  } catch (error: unknown) {
+    throw error;
+  }
+};
