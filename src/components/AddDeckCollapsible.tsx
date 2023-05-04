@@ -5,7 +5,7 @@ import { FC, useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
 import Collapsible from "@/components/ui/Collapsible";
-import DeckForm from "@/components/CardForm";
+import DeckForm from "@/components/DeckForm";
 import { createDeck } from "@/lib/fetch-data";
 import type { DeckForCreation } from "@/types/types";
 import * as RadixPortal from "@radix-ui/react-portal";
@@ -48,15 +48,15 @@ const AddDeckCollapsible: FC<AddCardCollapsibleProps> = ({
         setDescription("");
         setOpen(false);
       }}
-      onAnswerChange={useCallback((event) => {
-        setDescription(event.target.value);
-      }, [])}
-      onQuestionChange={useCallback((event) => {
+      onNameChange={useCallback((event) => {
         setName(event.target.value);
       }, [])}
-      question={name}
-      answer={description}
-      actionButtonText="Add Card"
+      onDescriptionChange={useCallback((event) => {
+        setDescription(event.target.value);
+      }, [])}
+      name={name}
+      description={description}
+      actionButtonText="Add Deck"
     />
   );
 
@@ -66,7 +66,7 @@ const AddDeckCollapsible: FC<AddCardCollapsibleProps> = ({
       setOpen={setOpen}
       triggerWrapperClassName="flex flex-end"
       triggerComponents={[
-        <Button key="addCard" size="medium">
+        <Button key="addDeck" size="medium">
           Add Deck
         </Button>,
       ]}
